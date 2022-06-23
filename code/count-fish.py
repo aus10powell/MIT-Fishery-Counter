@@ -1,9 +1,12 @@
-# Authors:	    Tzofi Klinghoffer & Caleb Perez
-# Date: 	    6/16/2017
-# Description:	Runs YOLO Darknet on a directory of images and counts fish. Pass in a data file, cfg file, weights file, and directory of images,
-#               each predictions image is saved to darknet/predictions folder, yolo-log.txt file has complete log of predicted classes and
-#               confidences for each image
-# Usage:        python count-fish.py image_folder_path data_file_path cfg_file_path weights_path threshold
+"""
+Authors:	    Tzofi Klinghoffer & Caleb Perez
+Date: 	    6/16/2017
+Description:	Runs YOLO Darknet on a directory of images and counts fish. Pass in a data file, cfg file, weights file, and directory of images,
+              each predictions image is saved to darknet/predictions folder, yolo-log.txt file has complete log of predicted classes and
+              confidences for each image
+Usage:        python count-fish.py image_folder_path data_file_path cfg_file_path weights_path threshold
+
+"""
 
 import sys
 import os
@@ -99,8 +102,8 @@ def main():
             appendToLog(filename + ": " + "\n" + str(newLabels) + "\n" + str(newConfidences) + "\n" + str(count) + "\n\n", log)
             
             # UNCOMMENT FOLLOWING COMMENTS FOR DEBUGGING: 
-            #print(labels)
-            #print(confidences)
-            #print(count)
+            print(labels)
+            print(confidences)
+            print(count)
 
 main()

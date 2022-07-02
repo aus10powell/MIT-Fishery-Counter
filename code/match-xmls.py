@@ -1,4 +1,4 @@
-'''
+"""
 Authors:  Tzofi Klinghoffer, Caleb Perez
 Date:     July 14, 2017
 Purpose:  Checks that all images have a matching xml annotation file, moving those that do not to
@@ -6,7 +6,7 @@ a Removed directory, created in the current directory if it does not already exi
 to be two distinct image and xml directories in the current directory, the names of which are taken
 as arguments.
 Usage:    python match-xmls.py imageDirName xmlDirName
-'''
+"""
 
 import os
 import sys
@@ -27,7 +27,9 @@ for filename in os.listdir(imageDir):
     imageFile = imageDir + "/" + filename
     if not os.path.isfile(xmlFile):
         os.system("mv " + imageFile + " " + mvPath)
-        print("No matching xml found for " + filename + ". Moved to different directory.")
+        print(
+            "No matching xml found for " + filename + ". Moved to different directory."
+        )
 
 # Checks all xmls for matching images.
 for filename in os.listdir(xmlDir):
@@ -35,4 +37,8 @@ for filename in os.listdir(xmlDir):
     imageFile = imageDir + "/" + filename[:-4] + ".png"
     if not os.path.isfile(imageFile):
         os.system("mv " + xmlFile + " " + mvPath)
-        print("No matching image found for " + filename + ". Moved to different directory.")
+        print(
+            "No matching image found for "
+            + filename
+            + ". Moved to different directory."
+        )

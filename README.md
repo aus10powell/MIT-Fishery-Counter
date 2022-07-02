@@ -40,8 +40,9 @@ Through these two methods, a counter is implemented such that fish are tracked a
 ### Documentation
 * [Instruction Manual](/documentation/Instruction%20Manual.pdf)
 
-### Large Files
+### Dropbox
 Currently linking to Dropbox folders for large files
+* [Original Project Files](https://www.dropbox.com/sh/26y1pqukooepsmr/AADXGlkRWTFrKl9GwN1SpDRUa?dl=0)
 * [2017 Software](https://www.dropbox.com/sh/26y1pqukooepsmr/AAD5wAO3EgLeyT7ENfvqhgIIa/2017%20Software?dl=0&subfolder_nav_tracking=1)
 
 ## Published and Whitepapers:

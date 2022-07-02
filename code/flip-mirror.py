@@ -1,31 +1,38 @@
-'''
+"""
 Authors: Tzofi Klinghoffer & Caleb Perez
 Date: 6/20/2017
 Description: Assuming image-slicer.py has already been run to split stereo images into their respective
 halves, this script flips the image vertically and horizontally, allowing for additional semi-unique
 training data. The left half is left untouched.
-Usage: python flip-mirror.py
-Script must be run from the same directory as the images.
-'''
 
+Usage: 
+    python python code/flip-mirror.py data/rv_boxed_herring/Images  
+"""
+# Utility
 import sys
 import os
+import glob
+from tqdm import tqdm
+
+# Image
 from PIL import Image, ImageOps
 
+
 def main():
-    #imageDirName = sys.argv[1]
+    try:
+        image_dir_path = sys.argv[1]
+        print("Image path:", image_dir_path)
+    except:
+        print("Default image path is current directory")
 
-    currDir = os.getcwd()
-    #imageDirPath = currDir + "/" + imageDirName
-
-    count = 0
-    for filename in os.listdir(currDir):
-        if filename[-6:] == "02.png":
-            count += 1
-            print(filename + " flipped and mirrored. " + count)
-            image = Image.open(filename)
+    for filename in tqdm(os.listdir(image_dir_path)):
+        if filename.endswith(".png") or filename.endswith(".jpg"):
+            in_filepath = os.path.join(image_dir_path, filename)
+            image = Image.open(in_filepath)
             image = ImageOps.flip(image)
             image = ImageOps.mirror(image)
             image.save(filename, "PNG")
 
-main()
+
+if __name__ == "__main__":
+    main()

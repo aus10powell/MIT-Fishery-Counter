@@ -6,6 +6,7 @@ import sys
 import os
 import xml.etree.ElementTree as ET
 
+
 def filterOut(root, filename):
     modified = 0
     for child in root:
@@ -15,6 +16,7 @@ def filterOut(root, filename):
                 root.remove(child)
                 print("sea urchin object removed from " + filename)
     return modified
+
 
 def main():
     xmlPath = "C:/Users/sguser/Desktop/test"
@@ -32,5 +34,6 @@ def main():
             modified = filterOut(root, filename)
         tree.write(fullXMLPath)
         modified = 0
+
 
 main()

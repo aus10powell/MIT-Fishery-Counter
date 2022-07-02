@@ -5,7 +5,8 @@ Description:	Runs YOLO Darknet on a directory of images and counts fish. Pass in
               each predictions image is saved to darknet/predictions folder, yolo-log.txt file has complete log of predicted classes and
               confidences for each image
 Usage:        python count-fish.py image_folder_path data_file_path cfg_file_path weights_path threshold
-
+              * image_folder_path: path to images to run inference on
+              * data_file_path: path to 
 """
 
 import sys
@@ -15,10 +16,11 @@ import os
 def cleanConfidence(confidence):
     return int(confidence.replace("%", "").replace(" ", ""))
 
+
 # Parses YOLO output into two arrays: one for labels and one for confidence
 def parseOutput(path, labels, newLabels, confidences, newConfidences):
     count = 0
-    with open(path, 'rU') as f:
+    with open(path, "rU") as f:
         for line in f:
             if count == 0:
                 count += 1
@@ -26,9 +28,10 @@ def parseOutput(path, labels, newLabels, confidences, newConfidences):
             temp = line.split(":")
             labels.append(temp[0])
             newLabels.append(temp[0])
-            confidences.append( str(cleanConfidence(temp[1])) )            
-            newConfidences.append( str(cleanConfidence(temp[1])) )            
+            confidences.append(str(cleanConfidence(temp[1])))
+            newConfidences.append(str(cleanConfidence(temp[1])))
     return labels, newLabels, confidences, newConfidences
+
 
 # Increases the count whenever a label is found that is expected
 def countLabels(labels, expected):
@@ -38,19 +41,21 @@ def countLabels(labels, expected):
             count += 1
     return count
 
+
 # Appends information to log file
 def appendToLog(message, log):
-    f = open(log, 'a')
+    f = open(log, "a")
     f.write(message)
     f.close()
+
 
 # Main Program: runs YOLO Darknet on all images and increments count
 def main():
     # USER VARIABLES - modify in EXCEPT clause
-    #try:
+    # try:
     #    expected = sys.argv[3]
     #    expected = expected.split(",")
-    #except IndexError:
+    # except IndexError:
     #    expected = ["dog", "feline"]
 
     # Modify with classes you wish to count
@@ -70,20 +75,20 @@ def main():
     newConfidences = []
     log = "yolo-log.txt"
 
-	# obtain the directory containing images
+    # obtain the directory containing images
     currDir = os.getcwd()
     imageDirPath = currDir + "/" + imageDirName
     log = currDir + "/" + log
 
     # file extensions that will be included
     extensions = [".jpg", ".png"]
-	
-	# create predictions picture folder
+
+    # create predictions picture folder
     if not os.path.isdir(currDir + "/predictions"):
         os.system("mkdir predictions")
 
     # create log file
-    f = open(log, 'w')
+    f = open(log, "w")
     f.close()
 
     # iterate directory
@@ -92,18 +97,45 @@ def main():
             newConfidences = []
             newLabels = []
             imagePath = imageDirName + "/" + filename
-            
+
             ### IF RUNNING ON WINDOWS, CHANGE ./darknet TO darknet.exe:
-            os.system("./darknet detector test " + dataPath + " " + cfgPath + " " + weightsPath + " " + imagePath + " -thresh " + threshold + " > " + outputFile)
-            
-            labels, newLabels, confidences, newConfidences = parseOutput(outputFile, labels, newLabels, confidences, newConfidences)
+            os.system(
+                "./darknet detector test "
+                + dataPath
+                + " "
+                + cfgPath
+                + " "
+                + weightsPath
+                + " "
+                + imagePath
+                + " -thresh "
+                + threshold
+                + " > "
+                + outputFile
+            )
+
+            labels, newLabels, confidences, newConfidences = parseOutput(
+                outputFile, labels, newLabels, confidences, newConfidences
+            )
             count = countLabels(labels, expected)
-            os.system("cp predictions.png ./predictions/predictions_"+ filename)
-            appendToLog(filename + ": " + "\n" + str(newLabels) + "\n" + str(newConfidences) + "\n" + str(count) + "\n\n", log)
-            
-            # UNCOMMENT FOLLOWING COMMENTS FOR DEBUGGING: 
+            os.system("cp predictions.png ./predictions/predictions_" + filename)
+            appendToLog(
+                filename
+                + ": "
+                + "\n"
+                + str(newLabels)
+                + "\n"
+                + str(newConfidences)
+                + "\n"
+                + str(count)
+                + "\n\n",
+                log,
+            )
+
+            # UNCOMMENT FOLLOWING COMMENTS FOR DEBUGGING:
             print(labels)
             print(confidences)
             print(count)
+
 
 main()

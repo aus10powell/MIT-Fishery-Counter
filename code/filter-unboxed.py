@@ -5,6 +5,7 @@
 import sys
 import os
 
+
 def main():
     labelPath = sys.argv[1]
 

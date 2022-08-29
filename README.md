@@ -1,9 +1,11 @@
 # MIT Fishery Counter
+![Red Herring](./pics/RedHerring.png)
 
 ### Contributors
 * *Robert Vincent (Research Advisor)*
 * *Austin Powell (Contributor)*
 * *Lydia Zuehsow (Contributor)*
+* *Blaine Gilbreth (Contributor)*
 
 ## Overview
 Fisheries populations have a large impact on the U.S. economy. Each year the U.S. fishing industry contributes 90 billion dollars and 1.5 million jobs to the U.S. economy. Each species may serve as a predator or prey for another. In this regard, fisheries populations are interconnected and dependent. While humans may depend on these populations as a source of sustenance (food, goods, etc.), humans can also negatively impact population growth. Barriers to migration, pollution, overfishing, and other forms of human-interference may impact spawning patterns of fisheries species. In 2014, 17% of U.S. fisheries were classified as overfished. Therefore, it is necessary to monitor these fisheries populations to determine when policy must be changed in efforts to maintain healthy oceans.
@@ -17,7 +19,7 @@ Separately, but on the same video feed, optical flow is used to find key points 
 
 Through these two methods, a counter is implemented such that fish are tracked across the screen and added to the counter if they are moving right to left. There are various parameters that can be used modify the tracker for different input parameters, such as the number of frames it takes into account before a fish hits the center and whether we include fish where it does not find directionality data.
 
-### Objectives:
+## Objectives:
 1. Identify fish as River Herring and Not River Herring (or by individual species)
 2. Count River Herring Only
 3. Count fish passing by in only one direction
@@ -29,15 +31,24 @@ Through these two methods, a counter is implemented such that fish are tracked a
 9. Develop a user interface for non-computer programmers
 10. Include other monitoring sensor and output such as temperature, current speed, light, and measurements of fish length and biomass would be desirable as well.
 
-## Future-Work:
-* Implement automation of fish counting from images that removes manual process of running on individual's machines
-* Continue applying image recognition to herring:
-	* Of interest to NOAA Fisheries, state agencies, as well as regional fisheries councils and local municipalities.
-	* Image recognition is a novel approach
-* Develop graphical user interface for end-users
-* Test other image recognition algorithms, such as Faster R-CNN and Mask R-CNN
+## Setup
+Current setup is a gated entry into the resorvoir in order to allow cameras to capture all of the content in cages.
 
-### Documentation
+### Cameras and gates
+<p float="left">
+  <img src="./pics/Camera_Set_Up_20220425_rv1.jpeg" width="300" height="300"/>
+  <img src="./pics/Camera_Set_Up_20220425_rv2.jpeg" width="300" height="300"/> 
+  <img src="./pics/Camera_Set_Up_20220425_rv3.jpeg" width="300" height="300" /> 
+  <img src="./pics/Camera_Set_Up_20220425_rv4.jpeg" width="300" height="300"/> 
+</p> 
+
+### Herring Example Photos
+<p float="left">
+  <img src="./pics/Herring Sylvia Place.png" width="300" height="300"/> 
+    <img src="./pics/HerringScreenCap.png" width="300" height="300"/> 
+</p>
+
+## Documentation
 * [Instruction Manual](/documentation/Instruction%20Manual.pdf)
 
 ### Dropbox
@@ -45,5 +56,13 @@ Currently linking to Dropbox folders for large files
 * [Original Project Files](https://www.dropbox.com/sh/26y1pqukooepsmr/AADXGlkRWTFrKl9GwN1SpDRUa?dl=0)
 * [2017 Software](https://www.dropbox.com/sh/26y1pqukooepsmr/AAD5wAO3EgLeyT7ENfvqhgIIa/2017%20Software?dl=0&subfolder_nav_tracking=1)
 
-## Published and Whitepapers:
+### Whitepapers
 * Read more [AMS Presentation](/documentation/AMS%20Presentation.pdf)
+
+## Future-Work:
+* Implement automation of fish counting from images that removes manual process of running on individual's machines
+* Continue applying image recognition to herring:
+	* Of interest to NOAA Fisheries, state agencies, as well as regional fisheries councils and local municipalities.
+	* Image recognition is a novel approach
+* Develop graphical user interface for end-users
+* Test other image recognition algorithms, such as Faster R-CNN and Mask R-CNN

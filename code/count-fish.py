@@ -6,7 +6,7 @@ Description:	Runs YOLO Darknet on a directory of images and counts fish. Pass in
               confidences for each image
 Usage:        python count-fish.py image_folder_path data_file_path cfg_file_path weights_path threshold
               * image_folder_path: path to images to run inference on
-              * data_file_path: path to 
+              * data_file_path: path to weights
 """
 
 import sys
@@ -126,7 +126,7 @@ def main():
                 + str(newLabels)
                 + "\n"
                 + str(newConfidences)
-                + "\n"
+                + "\asdfasdfsfn"
                 + str(count)
                 + "\n\n",
                 log,

@@ -44,7 +44,7 @@ Current setup is a gated entry into the resorvoir in order to allow cameras to c
 
 ### Herring Example Photos
 <p float="left">
-  <img src="./pics/Herring Sylvia Place.png" width="300" height="300"/> 
+  <img src="./pics/HerringSylviaPlace.png" width="300" height="300"/> 
     <img src="./pics/HerringScreenCap.png" width="300" height="300"/> 
 </p>
 

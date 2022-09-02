@@ -15,44 +15,48 @@ Usage:
     python process.py ../data/rv_boxed_herring/Images ../
 """
 
-import glob, os, sys
+def main():
+    import glob, os, sys
 
-# Current directory
-images_dir = sys.argv[1]
-print(images_dir)
+    # Current directory
+    images_dir = sys.argv[1]
+    print(images_dir)
 
-# Directory where the data will reside.
-# if len(sys.argv) < 2:
-#     text_path_data = os.getcwd() 
-# else:
-text_files_dir = sys.argv[2]
-print(text_files_dir)
-# Percentage of images to be used for the test set. Uncomment if desired.
-# percentage_test = 10;
-
-# Create and/or truncate train.txt and, if desired, test.txt.
-file_train = open("train.txt", "w")
-# file_test = open('test.txt', 'w')
-
-# Populate train.txt and test.txt, if desired.
-counter = 1
-# index_test = round(100 / percentage_test)
-# Change the extension to appropriate image type. Note, however, that, although training works with other image types,
-# certain functions (recall, valid) only work with .jpg files. If these functions are desired, you must convert the images.
-
-jpeg_files = list(glob.iglob(os.path.join(images_dir, "*.jpg")))
-print("Num files found in jpeg_files: "+str(len(jpeg_files)))
-print(jpeg_files)
-for pathAndFilename in jpeg_files:
-    title, ext = os.path.splitext(os.path.basename(pathAndFilename))
-
-    # Uncomment if populating test.txt
-    # if counter == index_test:
-    # counter = 1
-    # file_test.write(path_data + title + '.jpg' + "\n")
+    # Directory where the data will reside.
+    # if len(sys.argv) < 2:
+    #     text_path_data = os.getcwd() 
     # else:
-    file_train.write(
-        text_files_dir + title + ".jpg" + "\n"
-    )  # re-indent if populating test.txt
-    # counter = counter + 1
-file_train.close()
+    text_files_dir = sys.argv[2]
+    print(text_files_dir)
+    # Percentage of images to be used for the test set. Uncomment if desired.
+    # percentage_test = 10;
+
+    # Create and/or truncate train.txt and, if desired, test.txt.
+    file_train = open("train.txt", "w")
+    # file_test = open('test.txt', 'w')
+
+    # Populate train.txt and test.txt, if desired.
+    counter = 1
+    # index_test = round(100 / percentage_test)
+    # Change the extension to appropriate image type. Note, however, that, although training works with other image types,
+    # certain functions (recall, valid) only work with .jpg files. If these functions are desired, you must convert the images.
+
+    jpeg_files = list(glob.iglob(os.path.join(images_dir, "*.jpg")))
+    print("Num files found in jpeg_files: "+str(len(jpeg_files)))
+    print(jpeg_files)
+    for pathAndFilename in jpeg_files:
+        title, ext = os.path.splitext(os.path.basename(pathAndFilename))
+
+        # Uncomment if populating test.txt
+        # if counter == index_test:
+        # counter = 1
+        # file_test.write(path_data + title + '.jpg' + "\n")
+        # else:
+        file_train.write(
+            text_files_dir + title + ".jpg" + "\n"
+        )  # re-indent if populating test.txt
+        # counter = counter + 1
+    file_train.close()
+
+if __name__=='__main__':
+    main()

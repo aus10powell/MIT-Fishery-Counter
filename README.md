@@ -77,7 +77,7 @@ Currently linking to Dropbox folders for large files
 * Develop graphical user interface for end-users
 * Test other image recognition algorithms, such as Faster R-CNN and Mask R-CNN
 * **Known Current Challenges:**
-  * Tracking/Counting School of Fish at once
+  * Tracking/Counting School of Fish at
 
 ## Model Maintenance andinference:
 1. Training:

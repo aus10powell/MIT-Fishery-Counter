@@ -76,7 +76,15 @@ Currently linking to Dropbox folders for large files
 	* Image recognition is a novel approach
 * Develop graphical user interface for end-users
 * Test other image recognition algorithms, such as Faster R-CNN and Mask R-CNN
+* **Known Current Challenges:**
+  * Tracking/Counting School of Fish at once
 
-## Run Test inference:
-1. Navigate to darknet folder
-2. Run: *./darknet detector test ../weights/weights_and_config_files/Herring/herring.data ../weights/weights_and_config_files/Herring/herring.cfg ../weights/weights_and_config_files/Herring/herring_final.weights
+## Model Maintenance andinference:
+1. Training:
+   1. Following [THIS GUIDE](https://learnopencv.com/training-yolov3-deep-learning-based-custom-object-detector/)
+   2. **Quick Start for this code:**
+      1. Navigate to darknet folder
+      2. Run: *./darknet detector test ../weights/weights_and_config_files/Herring/herring.data ../weights/weights_and_config_files/Herring/herring.cfg ../weights/weights_and_config_files/Herring/herring_final.weights
+   3. 
+2. Using Python:
+   1. https://learnopencv.com/deep-learning-based-object-detection-using-yolov3-with-opencv-python-c/

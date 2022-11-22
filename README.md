@@ -34,6 +34,35 @@ Through these two methods, a counter is implemented such that fish are tracked a
 ## Setup
 Current setup is a gated entry into the resorvoir in order to allow cameras to capture all of the content in cages.
 
+### Locations
+```geojson
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": 1,
+      "properties": {
+        "ID": 0
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+              [-90,35],
+              [-90,30],
+              [-85,30],
+              [-85,35],
+              [-90,35]
+          ]
+        ]
+      }
+    }
+  ]
+}
+```
+
+
 ### Cameras and gates
 <p float="left">
   <img src="./pics/Camera_Set_Up_20220425_rv1.jpeg" width="300" height="300"/>

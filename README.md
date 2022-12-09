@@ -65,18 +65,18 @@ The benefit of this hybrid approach is that we can apply highly accurate object 
 * **https://pyimagesearch.com/2018/08/13/opencv-people-counter/**
 * https://help.ubidots.com/en/articles/1674356-people-counting-systems-with-opencv-python-and-ubidots
 
-## Documentation
+#### Documentation
 * [Instruction Manual](/documentation/Instruction%20Manual.pdf)
 
-### Dropbox
+#### Dropbox
 Currently linking to Dropbox folders for large files
 * [Original Project Files](https://www.dropbox.com/sh/26y1pqukooepsmr/AADXGlkRWTFrKl9GwN1SpDRUa?dl=0)
 * [2017 Software](https://www.dropbox.com/sh/26y1pqukooepsmr/AAD5wAO3EgLeyT7ENfvqhgIIa/2017%20Software?dl=0&subfolder_nav_tracking=1)
 
-### Whitepapers
+##### Whitepapers
 * Read more [AMS Presentation](/documentation/AMS%20Presentation.pdf)
 
-## Future-Work:
+##### Future-Work:
 * Implement automation of fish counting from images that removes manual process of running on individual's machines
 * Continue applying image recognition to herring:
 	* Of interest to NOAA Fisheries, state agencies, as well as regional fisheries councils and local municipalities.
@@ -85,6 +85,14 @@ Currently linking to Dropbox folders for large files
 * Test other image recognition algorithms, such as Faster R-CNN and Mask R-CNN
 * **Known Current Challenges:**
   * Tracking/Counting School of Fish at
+
+#### Other
+* *Useful apps and software:*
+  * *Labeling:*
+    * https://github.com/heartexlabs/labelImg (Used for project)
+    * https://www.scalabel.ai
+  * *Apps:*
+    * *Testing Threshold:* https://kxborg-open-threshold-threshold-a2jyh4.streamlit.app
 
 ## Model Maintenance andinference:
 1. Training:

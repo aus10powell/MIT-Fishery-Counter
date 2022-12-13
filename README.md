@@ -96,7 +96,9 @@ Currently linking to Dropbox folders for large files
 
 ## Model Maintenance andinference:
 1. Training:
-   1. Following [THIS GUIDE](https://learnopencv.com/training-yolov3-deep-learning-based-custom-object-detector/)
+   1. Tutorials on training YOLO
+      1. [THIS GUIDE](https://learnopencv.com/training-yolov3-deep-learning-based-custom-object-detector/)
+      2. [yolov7-training-on-custom-data](https://medium.com/augmented-startups/yolov7-training-on-custom-data-b86d23e6623)
    2. **Quick Start for this code:**
       1. Navigate to darknet folder
       2. Run: *./darknet detector test ../weights/weights_and_config_files/Herring/herring.data ../weights/weights_and_config_files/Herring/herring.cfg ../weights/weights_and_config_files/Herring/herring_final.weights

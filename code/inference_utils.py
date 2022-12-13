@@ -10,6 +10,7 @@ import numpy as np
 import os.path
 import matplotlib.pyplot as plt
 
+
 class FishCounter(object):
     """Counts fish from single frame image."""
 
@@ -97,9 +98,23 @@ class FishCounter(object):
         if time_inference:
             print(f"Inference time on image: {(t1-t0)*100:.2f}")
 
+        self.boxes = boxes
+
         return boxes, counts, indices, class_ids
 
     def get_annotated_frame(self):
         """Returns main frame with fish highlighted."""
         frame = self.frame.copy()
-        pass  # TODO: Finish
+
+        for box in self.boxes:
+            left, top, width, height = box[0], box[1], box[2], box[3]
+            xmin, ymin, xmax, ymax = left, top, left + width, top + height
+            predicted_box = xmin, ymin, xmax, ymax
+            cv2.rectangle(
+                frame,
+                (predicted_box[0], predicted_box[1]),
+                (predicted_box[2], predicted_box[3]),
+                (178, 255, 255),
+                2,
+            )
+        plt.imshow(frame)

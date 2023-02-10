@@ -15,6 +15,7 @@ Usage:
     python process.py ../data/rv_boxed_herring/Images ../
 """
 
+
 def main():
     import glob, os, sys
 
@@ -24,7 +25,7 @@ def main():
 
     # Directory where the data will reside.
     # if len(sys.argv) < 2:
-    #     text_path_data = os.getcwd() 
+    #     text_path_data = os.getcwd()
     # else:
     text_files_dir = sys.argv[2]
     print(text_files_dir)
@@ -42,7 +43,7 @@ def main():
     # certain functions (recall, valid) only work with .jpg files. If these functions are desired, you must convert the images.
 
     jpeg_files = list(glob.iglob(os.path.join(images_dir, "*.jpg")))
-    print("Num files found in jpeg_files: "+str(len(jpeg_files)))
+    print("Num files found in jpeg_files: " + str(len(jpeg_files)))
     print(jpeg_files)
     for pathAndFilename in jpeg_files:
         title, ext = os.path.splitext(os.path.basename(pathAndFilename))
@@ -58,5 +59,6 @@ def main():
         # counter = counter + 1
     file_train.close()
 
-if __name__=='__main__':
+
+if __name__ == "__main__":
     main()

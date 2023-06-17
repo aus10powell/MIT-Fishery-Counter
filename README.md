@@ -92,19 +92,33 @@ Currently linking to Dropbox folders for large files
 #### Other
 * *Useful apps and software:*
   * *Labeling:*
-    * https://github.com/heartexlabs/labelImg (Used for project)
-    * https://www.scalabel.ai
-  * *Apps:*
+    * Roboflow ()
+  * *Useful Tools and Apps:*
     * *Testing Threshold:* https://kxborg-open-threshold-threshold-a2jyh4.streamlit.app
 
-## Model Maintenance andinference:
-1. Training:
-   1. Tutorials on training YOLO
-      1. [THIS GUIDE](https://learnopencv.com/training-yolov3-deep-learning-based-custom-object-detector/)
-      2. [yolov7-training-on-custom-data](https://medium.com/augmented-startups/yolov7-training-on-custom-data-b86d23e6623)
-   2. **Quick Start for this code:**
-      1. Navigate to darknet folder
-      2. Run: *./darknet detector test ../weights/weights_and_config_files/Herring/herring.data ../weights/weights_and_config_files/Herring/herring.cfg ../weights/weights_and_config_files/Herring/herring_final.weights
-   3. 
-2. Using Python:
-   1. https://learnopencv.com/deep-learning-based-object-detection-using-yolov3-with-opencv-python-c/
+## Model Maintenance and inference:
+
+<p float="left">
+  <img src="./pics/val_batch1_pred.jpg" width="500" height="500"/> 
+</p>
+* **Original Setup**
+  * **Labeling**
+    * https://github.com/heartexlabs/labelImg (Used for project)
+    * https://www.scalabel.ai
+  * **Training:**
+    * Tutorials on training YOLO
+        * [THIS GUIDE](https://learnopencv.com/training-yolov3-deep-learning-based-custom-object-detector/)
+        * [yolov7-training-on-custom-data](https://medium.com/augmented-startups/yolov7-training-on-custom-data-b86d23e6623)
+    2. **Quick Start for this code:**
+        1. Navigate to darknet folder
+        2. Run: *./darknet detector test ../weights/weights_and_config_files/Herring/herring.data ../weights/weights_and_config_files/Herring/herring.cfg ../weights/weights_and_config_files/Herring/herring_final.weights
+  *   Using Python:
+        * https://learnopencv.com/deep-learning-based-object-detection-using-yolov3-with-opencv-python-c/
+
+* 06/16/2023
+  * Model updated to run 40% faster inference
+* **Current Setup**
+  * **Labeling**
+    * Roboflow (https://app.roboflow.com/) for:
+      * Data format transformation (e.g. Darknet to YOLO or CoCo)
+      * Data augmentation (e.g. cropping, resizing)

@@ -98,6 +98,9 @@ Currently linking to Dropbox folders for large files
 
 ## Model Maintenance and inference:
 
+### Setup:
+* Python3.8 required
+
 <p float="left">
   <img src="./pics/val_batch1_pred.jpg" width="500" height="500"/> 
 </p>

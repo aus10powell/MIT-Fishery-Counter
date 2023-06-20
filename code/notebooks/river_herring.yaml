@@ -15,7 +15,7 @@
 # test:  # test images (optional)
 
 # NOTE: Utilizing Roboanalytics to generate dataset in yolo8 formate
-path: /Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/datasets/MITFisheryHerringV3
+path: /Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/datasets/MITRiverHerringTemp2
 train: train/
 val: valid/
 

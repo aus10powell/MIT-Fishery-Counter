@@ -118,6 +118,7 @@ Currently linking to Dropbox folders for large files
   *   Using Python:
         * https://learnopencv.com/deep-learning-based-object-detection-using-yolov3-with-opencv-python-c/
 
+<!------
 * 06/16/2023
   * Model updated to run 40% faster inference
 * **Current Setup**
@@ -125,3 +126,13 @@ Currently linking to Dropbox folders for large files
     * Roboflow (https://app.roboflow.com/) for:
       * Data format transformation (e.g. Darknet to YOLO or CoCo)
       * Data augmentation (e.g. cropping, resizing)
+
+* 06/20/2023
+  * It seems like with the original train/test setup the model (Ultralytics at least) struggles with the cls_loss the most, box_lss the least. It seems like the naive explaination is the model is having more trouble identifying what the object is than drawing an accurate box around it.
+  * NOTE: I've made some very interesting observations
+    * The previously "best" model was the best because it was giving higher confidence to the fish (but also false identification)
+    * The track parameters have a very important relationship with the model
+    * The Roboflow has all the workflow items I need to maintain a healthy dataset
+      * Can maintain a static "Test" set using original data, possibly adding as needed
+      * Can upload images and assign to different annotators
+----->

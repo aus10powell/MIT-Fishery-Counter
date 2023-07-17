@@ -101,9 +101,20 @@ Currently linking to Dropbox folders for large files
 ### Setup:
 * Python3.8 required
 
+* Example annotations:
 <p float="left">
   <img src="./pics/val_batch1_pred.jpg" width="500" height="500"/> 
 </p>
+* Example video snippet:
+
+[![Everything Is AWESOME](https://img.youtube.com/vi/DGzkzcMR2lA/0.jpg)](https://youtu.be/DGzkzcMR2lA "Everything Is AWESOME")
+
+* **Current Methods**
+  * NOTES:
+    * Training:
+      * Yolov Medium model improvement of ~30% in speed and 10% performance over original Yolo v5 
+     * ![Yolov8 Performance Plots](./pics/yolo-comparison-plots.png)
+
 * **Original Setup**
   * **Labeling**
     * https://github.com/heartexlabs/labelImg (Used for project)
@@ -135,4 +146,37 @@ Currently linking to Dropbox folders for large files
     * The Roboflow has all the workflow items I need to maintain a healthy dataset
       * Can maintain a static "Test" set using original data, possibly adding as needed
       * Can upload images and assign to different annotators
+
+* 06/21/2023
+  * Labeling notes: 
+    * Having "null" images is very important particularly when dealing with varying image quality
+    * When attempting to track, it is important to get the target class in as many regions as possible to help with localization issue
+    * Adding noise to image is somewhat the same as dropout in model. Except with a lot of noise conditions in images anyway, there is more control over the drop-out to regularize the confidence across different data versions.
+
+* 06/22/2023
+  * Notes:
+    * The augmentation of the box around class helps immensly more than augmentation of the image itself
+
+* 06/26/2023
+  * Notes:
+    * Despite it being the usual wisdom of augmenting and adding drop-out, it seems like with the quality of images in the water, going a little lighter on the dropout 0.3 vs 0.5 is an improvement in addition to not more than 3 augmentations of images.
+
+06/27/2023
+  * Notes:
+    * REALIZED: Images from different years had different sizing. Stretched all images to minimal width/height and had strong improvement accross all metrics for 25 epochs
+
+07/07/23
+  * NOTES:
+    * Should probably investigate Wandb sweeps to be more effective in strategizing parameter optimization
+    * the convential wisdom that MAP50-95 is best metrics to optimize for may be true for this problem also based on emperical inference sanity-checks
+
+07/11/23
+  * NOTES:
+    * Adding new data definitely adds variance to predictions. Both automated roboflow training and dfl,cls and box loss curves change quite a bit with same parameters
+    * Should there be a goal when analyzing cls, dfl and box loss metrics to pushing the map5095 metric?
+    * It is quit clear that there needs to be a very small batch size in order to capture the variation in boxes and images.
+
+07/17/23
+  * NOTES:
+    * A dropout of at least 0.65 is necessary for good results. I belive this is because the model will not be able to generalize enough to different parts of the fish enough when majority of images have the overall shap
 ----->

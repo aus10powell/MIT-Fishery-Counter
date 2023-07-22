@@ -105,9 +105,9 @@ Currently linking to Dropbox folders for large files
 <p float="left">
   <img src="./pics/val_batch1_pred.jpg" width="500" height="500"/> 
 </p>
-* Example video snippet:
+* Example video snippet (click to view):
 
-[![Everything Is AWESOME](https://img.youtube.com/vi/DGzkzcMR2lA/0.jpg)](https://youtu.be/DGzkzcMR2lA "Everything Is AWESOME")
+[![Example Annotated Video](https://img.youtube.com/vi/qszev6AgkgA/0.jpg)](https://youtu.be/qszev6AgkgA "Example Annotated Video")
 
 * **Current Methods**
   * NOTES:

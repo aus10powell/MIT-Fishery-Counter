@@ -18,37 +18,38 @@
 
 ### CURRENT SETTINGS
 tracker_type: botsort  # tracker type, ['botsort', 'bytetrack']
-track_high_thresh: 0.1   # 0.6 default threshold for the first association
-track_low_thresh: 0.1  # threshold for the second association
-new_track_thresh: 0.1  # 0.6 default threshold for init new track if the detection does not match any tracks
+track_high_thresh: 0.8   # 0.6 default threshold for the first association
+track_low_thresh: 0.4  # threshold for the second association
+new_track_thresh: 0.2  # 0.6 default threshold for init new track if the detection does not match any tracks
 track_buffer: 30  # buffer to calculate the time when to remove tracks
-match_thresh: 0.95  # 0.8 default threshold for matching tracks
+match_thresh: 0.90  # 0.8 default threshold for matching tracks
 # min_box_area: 10  # threshold for min box areas(for tracker evaluation, not used for now)
 # mot20: False  # for tracker evaluation(not used for now)
 
 # BoT-SORT settings
 cmc_method: sparseOptFlow  # method of global motion compensation
 # ReID model related thresh (not supported yet)
-proximity_thresh: 0.5
-appearance_thresh: 0.25
+proximity_thresh: 0.8 # 0.2 default
+appearance_thresh: 0.1
 with_reid: False
 
 # ### CURRENT BEST SETTINGS
 # tracker_type: botsort  # tracker type, ['botsort', 'bytetrack']
-# track_high_thresh: 0.2  # 0.6 default threshold for the first association
-# track_low_thresh: 0.4  # threshold for the second association
-# new_track_thresh: 0.3  # 0.6 default threshold for init new track if the detection does not match any tracks
+# track_high_thresh: 0.6   # 0.6 default threshold for the first association
+# track_low_thresh: 0.3  # threshold for the second association
+# new_track_thresh: 0.1  # 0.6 default threshold for init new track if the detection does not match any tracks
 # track_buffer: 30  # buffer to calculate the time when to remove tracks
-# match_thresh: 0.9  # 0.8 default threshold for matching tracks
+# match_thresh: 0.95  # 0.8 default threshold for matching tracks
 # # min_box_area: 10  # threshold for min box areas(for tracker evaluation, not used for now)
 # # mot20: False  # for tracker evaluation(not used for now)
 
 # # BoT-SORT settings
 # cmc_method: sparseOptFlow  # method of global motion compensation
 # # ReID model related thresh (not supported yet)
-# proximity_thresh: 0.5
-# appearance_thresh: 0.25
+# proximity_thresh: 0.8 # 0.2 default
+# appearance_thresh: 0.1
 # with_reid: False
+
 
 
 

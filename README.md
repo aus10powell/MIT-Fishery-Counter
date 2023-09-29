@@ -129,54 +129,20 @@ Currently linking to Dropbox folders for large files
   *   Using Python:
         * https://learnopencv.com/deep-learning-based-object-detection-using-yolov3-with-opencv-python-c/
 
-<!------
-* 06/16/2023
-  * Model updated to run 40% faster inference
-* **Current Setup**
-  * **Labeling**
-    * Roboflow (https://app.roboflow.com/) for:
-      * Data format transformation (e.g. Darknet to YOLO or CoCo)
-      * Data augmentation (e.g. cropping, resizing)
+### Pipeline Version Changes
 
-* 06/20/2023
-  * It seems like with the original train/test setup the model (Ultralytics at least) struggles with the cls_loss the most, box_lss the least. It seems like the naive explaination is the model is having more trouble identifying what the object is than drawing an accurate box around it.
-  * NOTE: I've made some very interesting observations
-    * The previously "best" model was the best because it was giving higher confidence to the fish (but also false identification)
-    * The track parameters have a very important relationship with the model
-    * The Roboflow has all the workflow items I need to maintain a healthy dataset
-      * Can maintain a static "Test" set using original data, possibly adding as needed
-      * Can upload images and assign to different annotators
+1. **Model Enhancement (Version 1):**
+   - Improved inference speed by 40% by updating base code from original research project.
+   - Implemented Roboflow for data format transformation and augmentation.
 
-* 06/21/2023
-  * Labeling notes: 
-    * Having "null" images is very important particularly when dealing with varying image quality
-    * When attempting to track, it is important to get the target class in as many regions as possible to help with localization issue
-    * Adding noise to image is somewhat the same as dropout in model. Except with a lot of noise conditions in images anyway, there is more control over the drop-out to regularize the confidence across different data versions.
+2. **Insights and Optimization (Version 2):**
+   - Identified challenges with cls_loss and optimized model parameters.
+   - Leveraged Roboflow's workflow features for efficient dataset maintenance.
 
-* 06/22/2023
-  * Notes:
-    * The augmentation of the box around class helps immensly more than augmentation of the image itself
+3. **Labeling Strategies (Version 3):**
+   - Introduced labeling insights, including the importance of "null" images and maximizing target class in tracking.
+   - Applied noise to images for confidence regularization.
 
-* 06/26/2023
-  * Notes:
-    * Despite it being the usual wisdom of augmenting and adding drop-out, it seems like with the quality of images in the water, going a little lighter on the dropout 0.3 vs 0.5 is an improvement in addition to not more than 3 augmentations of images.
-
-06/27/2023
-  * Notes:
-    * REALIZED: Images from different years had different sizing. Stretched all images to minimal width/height and had strong improvement accross all metrics for 25 epochs
-
-07/07/23
-  * NOTES:
-    * Should probably investigate Wandb sweeps to be more effective in strategizing parameter optimization
-    * the convential wisdom that MAP50-95 is best metrics to optimize for may be true for this problem also based on emperical inference sanity-checks
-
-07/11/23
-  * NOTES:
-    * Adding new data definitely adds variance to predictions. Both automated roboflow training and dfl,cls and box loss curves change quite a bit with same parameters
-    * Should there be a goal when analyzing cls, dfl and box loss metrics to pushing the map5095 metric?
-    * It is quit clear that there needs to be a very small batch size in order to capture the variation in boxes and images.
-
-07/17/23
-  * NOTES:
-    * A dropout of at least 0.65 is necessary for good results. I belive this is because the model will not be able to generalize enough to different parts of the fish enough when majority of images have the overall shap
------>
+4. **Augmentation Strategies (Version 4):**
+   - Adjusted augmenting the box around the class for improved tracking results on golden dataset.
+   - Experimented with dropout variations and limited image augmentations for improved tracking results from 22% counting to 15% counting error.

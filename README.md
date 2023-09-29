@@ -12,13 +12,6 @@ Fisheries populations have a large impact on the U.S. economy. Each year the U.S
 
 Many groups, including NOAA Fisheries, state agencies, as well as regional fisheries councils and local municipalities, deploy camera and video equipment to monitor fisheries populations. Large amounts of video and photographic data are gathered at timed intervals. However, not all photos contain aquatic life. Currently, employees at these agencies among others are responsible for manually annotating the gathered videos and photos; this means they identify and count the relevant aquatic specimens in the data. Not only is this an inefficient use of time and resources, but also it can lead to inaccurate results due to human error. NOAA Fisheries Management can make a significant improvement in time and resource use through automation of the annotation process.
 
-## Methods
-A combination of optical flow and background removal is used in this analysis. These techniques are useful in extracting information from video, especially when movement is involved. To begin, OpenCV background removal is used to isolate moving parts of the image, such as the fish or variations in the water motion. A mask of these areas of the image is applied, so that the image is black and white. Morphological transformations are then applied to an image with the background removed, so that random isolated points are not included and the part representing the fish is expanded and connected. Contours describing regions where the mask is present are found and boxed. These bounding boxes are then analyzed for their size and location.
-
-Separately, but on the same video feed, optical flow is used to find key points in the image and analyze their movement over time to determine fish directionality. In particular, Lucas-Canade optical flow is used, which looks at the movement of a few selected points. Points that are within the above-described bounding boxes are included in directionality analysis. This is done by averaging the movement of key points within a bounding box to determine a probable direction of the fish.
-
-Through these two methods, a counter is implemented such that fish are tracked across the screen and added to the counter if they are moving right to left. There are various parameters that can be used modify the tracker for different input parameters, such as the number of frames it takes into account before a fish hits the center and whether we include fish where it does not find directionality data.
-
 ## Objectives:
 1. Identify fish as River Herring and Not River Herring (or by individual species)
 2. Count River Herring Only
@@ -145,4 +138,4 @@ Currently linking to Dropbox folders for large files
 
 4. **Augmentation Strategies (Version 4):**
    - Adjusted augmenting the box around the class for improved tracking results on golden dataset.
-   - Experimented with dropout variations and limited image augmentations for improved tracking results from 22% counting to 15% counting error.
+   - Experimented with dropout variations and limited image augmentations for improved tracking results from 22% counting to 15% counting error. 

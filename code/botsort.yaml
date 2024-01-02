@@ -27,7 +27,8 @@ match_thresh: 0.90  # 0.8 default threshold for matching tracks
 # mot20: False  # for tracker evaluation(not used for now)
 
 # BoT-SORT settings
-cmc_method: sparseOptFlow  # method of global motion compensation
+cmc_method: sparseOptFlow  # Discontinued
+gmc_method: sparseOptFlow  # method of global motion compensation
 # ReID model related thresh (not supported yet)
 proximity_thresh: 0.8 # 0.2 default
 appearance_thresh: 0.1

@@ -39,7 +39,8 @@ Current setup is a gated entry into the resorvoir in order to allow cameras to c
 * [64mp-ultra-high-res-camera-raspberry](https://www.arducam.com/64mp-ultra-high-res-camera-raspberry-pi/)
 * [950-Analog-Drop-Camera_p_20](https://seaviewer-com.3dcartstores.com/950-Analog-Drop-Camera_p_20.html)
 
-
+#### 
+[Meshtastic](https://meshtastic.org/docs/hardware/devices/)
 
 ### Locations
 Currently 4 locations stationed in Massachusetts

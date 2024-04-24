@@ -120,8 +120,12 @@ Currently linking to Dropbox folders for large files
     2. **Quick Start for this code:**
         1. Navigate to darknet folder
         2. Run: *./darknet detector test ../weights/weights_and_config_files/Herring/herring.data ../weights/weights_and_config_files/Herring/herring.cfg ../weights/weights_and_config_files/Herring/herring_final.weights
-  *   Using Python:
-        * https://learnopencv.com/deep-learning-based-object-detection-using-yolov3-with-opencv-python-c/
+  *   Training:
+
+[Alt Text](/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/pics/training_history.jpg)
+
+
+<img src="/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/pics/training_history.jpg" alt="Alt Text" />
 
 ### Pipeline Version Changes
 

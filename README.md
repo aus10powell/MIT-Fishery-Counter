@@ -108,7 +108,7 @@ Currently linking to Dropbox folders for large files
     * Training:
       * Yolov Medium model improvement of ~30% in speed and 10% performance over original Yolo v5 
      * ![Yolov8 Performance Plots](./pics/yolo-comparison-plots.png)
-
+     * [Training Notes](https://docs.google.com/document/d/1yLzUTvkOgHK4bfKO-WSn6hYkMr5eNbepW6A-Kdlq7jY/edit)
 * **Original Setup**
   * **Labeling**
     * https://github.com/heartexlabs/labelImg (Used for project)
@@ -122,10 +122,10 @@ Currently linking to Dropbox folders for large files
         2. Run: *./darknet detector test ../weights/weights_and_config_files/Herring/herring.data ../weights/weights_and_config_files/Herring/herring.cfg ../weights/weights_and_config_files/Herring/herring_final.weights
   *   Training:
 
-[Alt Text](/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/pics/training_history.jpg)
+[Alt Text](./pics/training_history.jpg)
 
 
-<img src="/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/pics/training_history.jpg" alt="Alt Text" />
+<img src="./pics/training_history.jpg" alt="Alt Text" />
 
 ### Pipeline Version Changes
 
@@ -143,4 +143,4 @@ Currently linking to Dropbox folders for large files
 
 4. **Augmentation Strategies (Version 4):**
    - Adjusted augmenting the box around the class for improved tracking results on golden dataset.
-   - Experimented with dropout variations and limited image augmentations for improved tracking results from 22% counting to 15% counting error. 
+   - Experimented with dropout variations and limited image augmentations for improved tracking results from 22% counting to 15% counting error (MAPE). 

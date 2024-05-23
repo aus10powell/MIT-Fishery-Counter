@@ -71,7 +71,8 @@ model = YOLO(
     # "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/runs/detect/train79/weights/last.pt"  # yolov8s: seems very stable but not able to get tracking working
     #"/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/colab_runs/best12.pt"  # best12.pt
    # 
-    "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train262/weights/best.pt"
+    #"/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train262/weights/best.pt"
+    "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/colab_runs/best_m_1.pt"
     # Best 04/23/24
     # "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/colab_runs/last_m_18.pt"
 )

@@ -109,6 +109,8 @@ Currently linking to Dropbox folders for large files
       * Yolov Medium model improvement of ~30% in speed and 10% performance over original Yolo v5 
      * ![Yolov8 Performance Plots](./pics/yolo-comparison-plots.png)
      * [Training Notes](https://docs.google.com/document/d/1yLzUTvkOgHK4bfKO-WSn6hYkMr5eNbepW6A-Kdlq7jY/edit)
+  * [ML System Design Planning](https://docs.google.com/document/d/1pmF5qaTwF8WI8LtYAa3pcG4to8LAxShJv5j3_R5d8Gk/edit)
+
 * **Original Setup**
   * **Labeling**
     * https://github.com/heartexlabs/labelImg (Used for project)

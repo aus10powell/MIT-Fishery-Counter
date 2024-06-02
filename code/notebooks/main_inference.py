@@ -56,7 +56,12 @@ video_path6 = "/Users/aus10powell/Downloads/RiverHerring/IRWA 2017 Videos/2018 F
 video_path7 = "/Users/aus10powell/Downloads/RiverHerring/IRWA 2017 Videos/2018 Fish Sightings/UNKNOWN FISH/2_2018-05-26_17-35-05.mp4"
 video_path8 = "/Users/aus10powell/Downloads/1_2024-04-24_12-00-01_726.mp4"
 
-video_path = "/Users/aus10powell/Downloads/1_2024-04-24_12-00-01_726.mp4"
+# Gold standard santuit 2024
+video_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/santuit_2024/1_2024-04-24_12-00-01_726.mp4"
+
+# Gold standard coonameset 2024
+video_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/coonameset_2024/1_2024-05-14_09-00-00_987.mp4"
+
 
 model = YOLO(
     # Current best
@@ -72,8 +77,12 @@ model = YOLO(
     #"/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/colab_runs/best12.pt"  # best12.pt
    # 
     #"/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train262/weights/best.pt"
-    "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/colab_runs/best_m_1.pt"
-    # Best 04/23/24
+   "/Users/aus10powell/Downloads/best-3.pt"
+    # Best  
+    # yolov9c (05/23/24):
+    #"/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/runs/yolov9c_runs/runs/detect/train2/weights/last.pt"
+    # yolov8m (04/23/24): 
+     #"/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/colab_runs/best_m_1.pt"
     # "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/colab_runs/last_m_18.pt"
 )
 
@@ -185,7 +194,7 @@ def frames_to_file(
     )
 
 
-def main(video_path, device="mps", stream=True, show=True, tracker="../botsort.yaml"):
+def main(video_path, device="cpu", stream=True, show=True, tracker="../botsort.yaml"):
     """
     Process a video file with object detection and line counting.
     

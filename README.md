@@ -76,12 +76,11 @@ Currently linking to Dropbox folders for large files
 * Read more [AMS Presentation](/documentation/AMS%20Presentation.pdf)
 
 ##### Future-Work:
-* Implement automation of fish counting from images that removes manual process of running on individual's machines
-* Continue applying image recognition to herring:
-	* Of interest to NOAA Fisheries, state agencies, as well as regional fisheries councils and local municipalities.
-	* Image recognition is a novel approach
-* Develop graphical user interface for end-users
-* Test other image recognition algorithms, such as Faster R-CNN and Mask R-CNN
+* Continue applying image recognition to herring at different sites
+* Research data drift for different levels of lighting.
+* ~~Develop graphical user interface for end-users~~
+* ~~Implement automation of fish counting from images that removes manual process of running on individual's machines~~
+
 
 #### Other
 * *Useful apps and software:*
@@ -146,3 +145,6 @@ Currently linking to Dropbox folders for large files
 4. **Augmentation Strategies (Version 4):**
    - Adjusted augmenting the box around the class for improved tracking results on golden dataset.
    - Experimented with dropout variations and limited image augmentations for improved tracking results from 22% counting to 15% counting error (MAPE). 
+  
+5. **New Fishery Site Tuning**
+   - Developed model specifc for other site

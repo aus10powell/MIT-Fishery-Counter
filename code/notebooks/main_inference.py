@@ -87,36 +87,43 @@ video_path8 = "/Users/aus10powell/Downloads/1_2024-04-24_12-00-01_726.mp4"
 video_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/santuit_2024/1_2024-04-24_12-00-01_726.mp4"
 
 # Gold standard coonameset 2024
-video_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/coonameset_2024/1_2024-05-14_09-00-00_987.mp4"
+video_path = video_path1a# "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/coonameset_2024/1_2024-05-14_09-00-00_987.mp4"
 
 
-model = YOLO(
-    # Current best
-    # "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/colab_runs/best_m_1.pt"
-   # "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train179/weights/best.pt" #MAP50-95 .72 on small
-    # "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train184/weights/best.pt" MAP50-95 .719 on nano
-    # 1)  "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train133/weights/best.pt"
-    # 2) "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train105/weights/best.pt"
-    # Testing
-    # "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train38/weights/best.pt"
-    # Testing Larg model (0.69 MAP50-95): "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train176/weights/best.pt"
-    # "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/runs/detect/train79/weights/last.pt"  # yolov8s: seems very stable but not able to get tracking working
-    #"/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/colab_runs/best12.pt"  # best12.pt
-   # 
-    #"/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train262/weights/best.pt"
-   "/Users/aus10powell/Downloads/best-3.pt"
-    # Best  
-    # yolov9c (05/23/24):
-    #"/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/runs/yolov9c_runs/runs/detect/train2/weights/last.pt"
-    # yolov8m (04/23/24): 
-     #"/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/colab_runs/best_m_1.pt"
-    # "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/colab_runs/last_m_18.pt"
-)
+
+# IWRA Current best
+# "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/colab_runs/best_m_1.pt"
+# "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train179/weights/best.pt" #MAP50-95 .72 on small
+# "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train184/weights/best.pt" MAP50-95 .719 on nano
+# 1)  "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train133/weights/best.pt"
+# 2) "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train105/weights/best.pt"
+# Testing
+# "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train38/weights/best.pt"
+# Testing Larg model (0.69 MAP50-95): "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train176/weights/best.pt"
+# "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/runs/detect/train79/weights/last.pt"  # yolov8s: seems very stable but not able to get tracking working
+#"/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/colab_runs/best12.pt"  # best12.pt
+# 
+#"/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train262/weights/best.pt"
+
+# Best  
+# yolov9c (05/23/24):
+#"/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/runs/yolov9c_runs/runs/detect/train2/weights/last.pt"
+# yolov8m (04/23/24): 
+#"/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/colab_runs/best_m_1.pt"
+# "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/colab_runs/last_m_18.pt"
+
+# Santuit best
+#"/Users/aus10powell/Downloads/best-3.pt"
+
+def load_yolo_model(model_path):
+    model = YOLO(model_path)
+    return model
+model = load_yolo_model(model_path="/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/colab_runs/best_m_1.pt")
 
 
 def frames_to_video(frames=None, fps=12):
     """
-    Convert frames to video for Streamlit
+    Convert frames to video for Streamlit without writing_to_file
 
     Args:
         frames: frame from cv2.VideoCapture as numpy. E.g. frame.astype(np.uint8)
@@ -170,7 +177,7 @@ def frames_to_video(frames=None, fps=12):
     return output_memory_file
 
 
-def frames_to_file(
+def write_frames_to_file(
     annotated_frames=None, output_video_path="annotated_video.mp4", fps=30
 ):
     import cv2
@@ -249,7 +256,7 @@ def main(video_path, device="cpu", stream=True, show=True, tracker="../botsort.y
     # frame_rate = cv2.VideoCapture(video_path).get(cv2.CAP_PROP_FPS)
 
     annotated_frames = []
-    total_detections_counted = []
+    frame_detections = []
     # Initialize the list to store relative frame times
     relative_frame_times = []
 
@@ -292,7 +299,10 @@ def main(video_path, device="cpu", stream=True, show=True, tracker="../botsort.y
             # time.sleep(0.5)
             print("*" * 50)
             print()
-            total_detections_counted.append(len(detections))
+            frame_detections.append(len(detections))
+        else:
+            # No fish
+            frame_detections.append(0)
 
         # Annotate the frame with bounding boxes and labels
         frame = box_annotator.annotate(
@@ -320,7 +330,7 @@ def main(video_path, device="cpu", stream=True, show=True, tracker="../botsort.y
     logger.info(
         f"TOTAL FISH OUT: {line_counter.out_count} \t TOTAL FISH IN: {line_counter.in_count} \t NET (moving right to left): {line_counter.out_count - line_counter.in_count}"
     )
-    logger.info(f"total_detections_counted: {sum(total_detections_counted)}")
+    logger.info(f"total frame_detections: {sum(frame_detections)}")
     logger.info("-" * 100)
     return (
         frame_rate,
@@ -329,7 +339,32 @@ def main(video_path, device="cpu", stream=True, show=True, tracker="../botsort.y
         line_counter.in_count,
         duration_seconds,
         relative_frame_times,
+        frame_detections
     )
+
+
+def write_frame_data_to_csv(frame_detections, relative_frame_times, video_fname, output_dir):
+    """
+    Write frame detections and relative frame times to a CSV file.
+
+    Args:
+        frame_detections (list): List of frame detections.
+        relative_frame_times (list): List of relative frame times.
+        video_fname (str): Name of the video file.
+        output_dir (str): Directory where the CSV file will be saved.
+    """
+    import csv
+    output_csv_path = os.path.join(output_dir, f"{video_fname}_detections.csv")
+
+    with open(output_csv_path, mode='w', newline='') as csvfile:
+        fieldnames = ['Frame', 'Detection', 'Relative Time']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+        writer.writeheader()
+        for frame, detection, time in zip(range(len(frame_detections)), frame_detections, relative_frame_times):
+            writer.writerow({'Frame': frame, 'Detection': detection, 'Relative Time': time})
+
+    print(f"Frame detections and relative frame times written to: {output_csv_path}")
 
 
 if __name__ == "__main__":
@@ -338,7 +373,7 @@ if __name__ == "__main__":
     start_memory = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
 
     # Get annotated frames and input video frame rate
-    frame_rate, annotated_frames, out_count, in_count, duration_seconds, _ = main(
+    frame_rate, annotated_frames, out_count, in_count, duration_seconds, relative_frame_times, frame_detections = main(
         video_path=video_path
     )
     video_fname = video_path.split("/")[-1].split(".")[0] + "_annotated"
@@ -348,11 +383,13 @@ if __name__ == "__main__":
     output_video_path = os.path.join(
         OUTPUT_DIR, f"{video_fname}.mp4"
     )  #  "/Users/aus10powell/Downloads/annotated_video.mp4"
-    frames_to_file(
+    write_frames_to_file(
         annotated_frames=annotated_frames,
         output_video_path=output_video_path,
         fps=frame_rate,
     )
+    write_frame_data_to_csv(frame_detections, relative_frame_times, video_fname, OUTPUT_DIR)
+
     # Write number of counted fish to file
     data = {
         "out_count": out_count,

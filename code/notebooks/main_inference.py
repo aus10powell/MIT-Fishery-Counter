@@ -10,6 +10,9 @@ import logging
 import os
 from tqdm import tqdm
 import resource
+import re
+from datetime import timedelta
+import pandas as pd
 import inspect
 
 
@@ -202,6 +205,54 @@ def write_frames_to_file(
         f"INFO: Wrote {output_video_path} @ fps = {fps:.3}. Total frames = {total_frames}"
     )
 
+def extract_datetime_from_filename(filename):
+  """
+  Extracts date and time from a filename with specific format.
+
+  Args:
+      filename (str): The filename to extract datetime from.
+
+  Returns:
+      datetime.datetime: The extracted datetime object or None if not found.
+
+  Raises:
+      ValueError: If the filename format doesn't match the expected pattern.
+  """
+  pattern = r"(\d+)_(\d{4}-\d{2}-\d{2})_(\d{2}-\d{2}-\d{2})\.(.+)?"
+  match = re.search(pattern, filename)
+
+  if match:
+    _, date_str, time_str, _ = match.groups()
+    datetime_str = f"{date_str} {time_str}"
+    try:
+      from datetime import datetime
+      return datetime.strptime(datetime_str, "%Y-%m-%d %H-%M-%S")
+    except ValueError:
+      raise ValueError("Invalid date or time format in filename")
+  else:
+    raise ValueError("Filename format doesn't match expected pattern")
+
+
+def create_timestamps(relative_frame_times, reference_datetime, format_string="%Y-%m-%d %H:%M:%S.%f"):
+  """
+  Creates a list of formatted timestamps from relative frame times and a reference datetime.
+
+  Args:
+      relative_frame_times (list): A list of frame times in seconds (floats).
+      reference_datetime (datetime.datetime): The reference datetime for the video.
+      format_string (str, optional): The format string for timestamps (default "%Y-%m-%d %H:%M:%S.%f").
+
+  Returns:
+      list: A list of formatted timestamp strings suitable for CSV.
+  """
+  timestamps = []
+  for frame_time in relative_frame_times:
+    time_delta = timedelta(seconds=frame_time)
+    timestamp = reference_datetime + time_delta
+    formatted_timestamp = timestamp.strftime(format_string)
+    timestamps.append(formatted_timestamp)
+  return timestamps
+
 
 def main(video_path, device="cpu", stream=True, show=True, tracker="../botsort.yaml"):
     """
@@ -362,7 +413,7 @@ def write_frame_data_to_csv(frame_detections, relative_frame_times, video_fname,
 
         writer.writeheader()
         for frame, detection, time in zip(range(len(frame_detections)), frame_detections, relative_frame_times):
-            writer.writerow({'Frame': frame, 'Detection': detection, 'Relative Time': time})
+            writer.writerow({'Frame': frame, 'Detection': detection, 'Time': time})
 
     print(f"Frame detections and relative frame times written to: {output_csv_path}")
 
@@ -388,7 +439,12 @@ if __name__ == "__main__":
         output_video_path=output_video_path,
         fps=frame_rate,
     )
-    write_frame_data_to_csv(frame_detections, relative_frame_times, video_fname, OUTPUT_DIR)
+
+    # Extract reference datetime (assuming this logic exists elsewhere)
+    reference_datetime = extract_datetime_from_filename(filename=video_path)
+    # Create formatted timestamps based on reference datetime and relative times
+    formatted_timestamps = create_timestamps(relative_frame_times, reference_datetime)
+    write_frame_data_to_csv(frame_detections, formatted_timestamps, video_fname, OUTPUT_DIR)
 
     # Write number of counted fish to file
     data = {

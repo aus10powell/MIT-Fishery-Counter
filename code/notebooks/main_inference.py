@@ -13,7 +13,34 @@ import resource
 import inspect
 
 
-logging.basicConfig(level=logging.INFO)
+def set_logging_level(filename):
+    """
+    Set logging level based on the filename.
+
+    Args:
+        filename (str): The name of the file being processed.
+    """
+    # Extract logging level from filename
+    logging_levels = {
+        "DEBUG": logging.DEBUG,
+        "INFO": logging.INFO,
+        "WARNING": logging.WARNING,
+        "ERROR": logging.ERROR,
+        "CRITICAL": logging.CRITICAL
+    }
+    level = filename.split("_")[-1].split(".")[0].upper()
+
+    # Check if the extracted level is valid
+    if level in logging_levels:
+        logging.basicConfig(level=logging_levels[level])
+    else:
+        logging.basicConfig(level=logging.INFO)  # Default to INFO level if level is not recognized
+
+    return logging
+# Set logging level based on filename
+logger = set_logging_level(__file__)
+
+
 
 ## Gold Standard
 # One fish
@@ -86,31 +113,6 @@ model = YOLO(
     # "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/colab_runs/last_m_18.pt"
 )
 
-def set_logging_level(filename):
-    """
-    Set logging level based on the filename.
-
-    Args:
-        filename (str): The name of the file being processed.
-    """
-    # Extract logging level from filename
-    logging_levels = {
-        "DEBUG": logging.DEBUG,
-        "INFO": logging.INFO,
-        "WARNING": logging.WARNING,
-        "ERROR": logging.ERROR,
-        "CRITICAL": logging.CRITICAL
-    }
-    level = filename.split("_")[-1].split(".")[0].upper()
-
-    # Check if the extracted level is valid
-    if level in logging_levels:
-        logging.basicConfig(level=logging_levels[level])
-    else:
-        logging.basicConfig(level=logging.INFO)  # Default to INFO level if level is not recognized
-
-# Set logging level based on filename
-set_logging_level(__file__)
 
 def frames_to_video(frames=None, fps=12):
     """
@@ -143,7 +145,7 @@ def frames_to_video(frames=None, fps=12):
     stream.options = {"crf": "17"}
 
     # Iterate through the frames, encode, and write to MP4 memory file
-    logging.info("INFO: Encoding frames and writing to MP4 format.")
+    logger.info("Encoding frames and writing to MP4 format.")
     for frame in tqdm(frames):
         # Convert frame to av.VideoFrame format
         frame = av.VideoFrame.from_ndarray(frame.astype(np.uint8), format="bgr24")
@@ -189,7 +191,7 @@ def frames_to_file(
 
     # Release the video writer
     video_writer.release()
-    logging.info(
+    logger.info(
         f"INFO: Wrote {output_video_path} @ fps = {fps:.3}. Total frames = {total_frames}"
     )
 
@@ -314,12 +316,12 @@ def main(video_path, device="cpu", stream=True, show=True, tracker="../botsort.y
             break
     # video.release()
     # Print the total fish count from the line counter
-    logging.info("-" * 100)
-    logging.info(
+    logger.info("-" * 100)
+    logger.info(
         f"TOTAL FISH OUT: {line_counter.out_count} \t TOTAL FISH IN: {line_counter.in_count} \t NET (moving right to left): {line_counter.out_count - line_counter.in_count}"
     )
-    logging.info(f"total_detections_counted: {sum(total_detections_counted)}")
-    logging.info("-" * 100)
+    logger.info(f"total_detections_counted: {sum(total_detections_counted)}")
+    logger.info("-" * 100)
     return (
         frame_rate,
         annotated_frames,

@@ -1,4 +1,5 @@
 import cv2
+import logging
 import time
 from ultralytics import YOLO
 import supervision as sv
@@ -183,8 +184,6 @@ def frames_to_video(frames=None, fps=12):
 def write_frames_to_file(
     annotated_frames=None, output_video_path="annotated_video.mp4", fps=30
 ):
-    import cv2
-    import logging
 
     # Get the frame dimensions from the first annotated frame
     height, width, _ = annotated_frames[0].shape
@@ -204,6 +203,7 @@ def write_frames_to_file(
     logger.info(
         f"INFO: Wrote {output_video_path} @ fps = {fps:.3}. Total frames = {total_frames}"
     )
+
 
 def extract_datetime_from_filename(filename):
   """
@@ -405,6 +405,7 @@ def write_frame_data_to_csv(frame_detections, relative_frame_times, video_fname,
         output_dir (str): Directory where the CSV file will be saved.
     """
     import csv
+    import json 
     output_csv_path = os.path.join(output_dir, f"{video_fname}_detections.csv")
 
     with open(output_csv_path, mode='w', newline='') as csvfile:
@@ -417,8 +418,22 @@ def write_frame_data_to_csv(frame_detections, relative_frame_times, video_fname,
 
     print(f"Frame detections and relative frame times written to: {output_csv_path}")
 
+def write_counts_to_json(data, output_dir):
+    """
+    Write the fish counts to a JSON file.
+
+    Args:
+        data (dict): Dictionary containing the fish counts.
+        output_dir (str): Directory where the JSON file will be saved.
+    """
+    with open(os.path.join(output_dir, "video_counts.json"), "w") as file:
+        json_dumps_str = json.dumps(data, indent=4)
+        print(json_dumps_str, file=file)
 
 if __name__ == "__main__":
+    # Write annotated frames to local disk
+    OUTPUT_DIR = os.path.join("/", "Users", "aus10powell", "Downloads")
+
     t0 = time.time()
     # Measure memory usage before running the script
     start_memory = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
@@ -428,9 +443,6 @@ if __name__ == "__main__":
         video_path=video_path
     )
     video_fname = video_path.split("/")[-1].split(".")[0] + "_annotated"
-
-    # Write annotated frames to local disk
-    OUTPUT_DIR = os.path.join("/", "Users", "aus10powell", "Downloads")
     output_video_path = os.path.join(
         OUTPUT_DIR, f"{video_fname}.mp4"
     )  #  "/Users/aus10powell/Downloads/annotated_video.mp4"
@@ -439,13 +451,11 @@ if __name__ == "__main__":
         output_video_path=output_video_path,
         fps=frame_rate,
     )
-
     # Extract reference datetime (assuming this logic exists elsewhere)
     reference_datetime = extract_datetime_from_filename(filename=video_path)
     # Create formatted timestamps based on reference datetime and relative times
     formatted_timestamps = create_timestamps(relative_frame_times, reference_datetime)
     write_frame_data_to_csv(frame_detections, formatted_timestamps, video_fname, OUTPUT_DIR)
-
     # Write number of counted fish to file
     data = {
         "out_count": out_count,
@@ -454,10 +464,7 @@ if __name__ == "__main__":
         "video_fname": video_fname,
         "location": "IRWA",
     }
-    with open(os.path.join(OUTPUT_DIR, "video_counts.json"), "w") as file:
-        json_dumps_str = json.dumps(data, indent=4)
-        print(json_dumps_str, file=file)
-
+    write_counts_to_json(data, OUTPUT_DIR)
     t1 = time.time()
     # Measure memory usage after running the script
     end_memory = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss

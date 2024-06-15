@@ -13,116 +13,7 @@ from tqdm import tqdm
 import resource
 import re
 from datetime import timedelta
-import pandas as pd
 import inspect
-
-
-def set_logging_level(filename):
-    """
-    Set logging level based on the filename.
-
-    Args:
-        filename (str): The name of the file being processed.
-    """
-    # Extract logging level from filename
-    logging_levels = {
-        "DEBUG": logging.DEBUG,
-        "INFO": logging.INFO,
-        "WARNING": logging.WARNING,
-        "ERROR": logging.ERROR,
-        "CRITICAL": logging.CRITICAL
-    }
-    level = filename.split("_")[-1].split(".")[0].upper()
-
-    # Check if the extracted level is valid
-    if level in logging_levels:
-        logging.basicConfig(level=logging_levels[level])
-    else:
-        logging.basicConfig(level=logging.INFO)  # Default to INFO level if level is not recognized
-
-    return logging
-# Set logging level based on filename
-logger = set_logging_level(__file__)
-
-
-
-## Gold Standard
-# One fish
-video_path1 = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/2_2017-04-13_14-10-29.mp4"
-video_path1a = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/2_2018-04-14_10-06-19.mp4"  # Currently detected not counted
-video_path2c = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/2_2018-04-14_10-06-19.mp4"
-
-
-# Multiple fish swimming sequentally
-video_path2b = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/2_2018-05-10_06-39-30.mp4"
-
-# 3 fish
-video_path3a = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/2_2018-04-27_15-23-03.mp4"
-
-
-# 1 fish out
-# Works with model 105 best
-video_path1b = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/2_2018-04-14_10-06-19.mp4"
-
-# Two fish swimming concurrently
-# Works with model 105 best
-video_path2 = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/2_2017-04-13_14-10-29.mp4"  # Current:
-
-# Multiple fish swimming sequentally
-video_path2a = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/videos/2_2018-05-10_06-39-30.mp4"
-
-
-# One fish reversing direction
-video_path3 = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/2_2017-06-04_06-09-56.mp4"
-
-# UNSOLVED
-
-# 2018
-video_path4 = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/2_2017-04-13_13-10-00.mp4"
-video_path5 = "/Users/aus10powell/Downloads/RiverHerring/IRWA 2017 Videos/2018 Fish Sightings/2_2018-04-26_15-03-18.mp4"
-
-# Non-herring species
-video_path6 = "/Users/aus10powell/Downloads/RiverHerring/IRWA 2017 Videos/2018 Fish Sightings/2_2018-05-26_17-35-05.mp4"
-
-video_path7 = "/Users/aus10powell/Downloads/RiverHerring/IRWA 2017 Videos/2018 Fish Sightings/UNKNOWN FISH/2_2018-05-26_17-35-05.mp4"
-video_path8 = "/Users/aus10powell/Downloads/1_2024-04-24_12-00-01_726.mp4"
-
-# Gold standard santuit 2024
-video_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/santuit_2024/1_2024-04-24_12-00-01_726.mp4"
-
-# Gold standard coonameset 2024
-video_path = video_path1a# "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/coonameset_2024/1_2024-05-14_09-00-00_987.mp4"
-
-
-
-# IWRA Current best
-# "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/colab_runs/best_m_1.pt"
-# "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train179/weights/best.pt" #MAP50-95 .72 on small
-# "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train184/weights/best.pt" MAP50-95 .719 on nano
-# 1)  "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train133/weights/best.pt"
-# 2) "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train105/weights/best.pt"
-# Testing
-# "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train38/weights/best.pt"
-# Testing Larg model (0.69 MAP50-95): "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train176/weights/best.pt"
-# "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/runs/detect/train79/weights/last.pt"  # yolov8s: seems very stable but not able to get tracking working
-#"/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/colab_runs/best12.pt"  # best12.pt
-# 
-#"/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train262/weights/best.pt"
-
-# Best  
-# yolov9c (05/23/24):
-#"/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/runs/yolov9c_runs/runs/detect/train2/weights/last.pt"
-# yolov8m (04/23/24): 
-#"/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/colab_runs/best_m_1.pt"
-# "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/colab_runs/last_m_18.pt"
-
-# Santuit best
-#"/Users/aus10powell/Downloads/best-3.pt"
-
-def load_yolo_model(model_path):
-    model = YOLO(model_path)
-    return model
-model = load_yolo_model(model_path="/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/colab_runs/best_m_1.pt")
 
 
 def frames_to_video(frames=None, fps=12):
@@ -254,19 +145,68 @@ def create_timestamps(relative_frame_times, reference_datetime, format_string="%
   return timestamps
 
 
+
+def write_frame_data_to_csv(frame_detections, relative_frame_times, video_fname, output_dir):
+    """
+    Write frame detections and relative frame times to a CSV file.
+
+    Args:
+        frame_detections (list): List of frame detections.
+        relative_frame_times (list): List of relative frame times.
+        video_fname (str): Name of the video file.
+        output_dir (str): Directory where the CSV file will be saved.
+    """
+    import csv
+    import json 
+    output_csv_path = os.path.join(output_dir, f"{video_fname}_detections.csv")
+
+    with open(output_csv_path, mode='w', newline='') as csvfile:
+        fieldnames = ['Frame', 'Detection', 'Relative Time']
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+
+        writer.writeheader()
+        for frame, detection, time in zip(range(len(frame_detections)), frame_detections, relative_frame_times):
+            writer.writerow({'Frame': frame, 'Detection': detection, 'Time': time})
+
+    print(f"Frame detections and relative frame times written to: {output_csv_path}")
+
+def write_counts_to_json(data, output_dir):
+    """
+    Write the fish counts to a JSON file.
+
+    Args:
+        data (dict): Dictionary containing the fish counts.
+        output_dir (str): Directory where the JSON file will be saved.
+    """
+    with open(os.path.join(output_dir, "video_counts.json"), "w") as file:
+        json_dumps_str = json.dumps(data, indent=4)
+        print(json_dumps_str, file=file)
+
+def get_annotated_video_name(video_path):
+    """
+    Generate annotated video file name from the given video path.
+
+    Args:
+        video_path (str): Path to the video file.
+
+    Returns:
+        str: Annotated video file name.
+    """
+    video_fname = video_path.split("/")[-1].split(".")[0] + "_annotated"
+    return video_fname
+
 class InferenceCounter:
     def __init__(self, device='cpu', tracker="../botsort.yaml", model_path="yolov8s.pt"):
         self.device = device
         self.tracker = tracker
         self.model = self.load_model(model_path)
-        self.logger = self.set_logging_level(self.__class__.__name__)
-        # Add other initializations here
+        self.logger = self.set_logging_level()
 
     def load_model(self, model_path):
         model = YOLO(model_path)
         return model
 
-    def set_logging_level(self):
+    def set_logging_level(self, level=None):
         """
         Set logging level based on the class name.
 
@@ -280,8 +220,6 @@ class InferenceCounter:
             "ERROR": logging.ERROR,
             "CRITICAL": logging.CRITICAL
         }
-
-        level = class_name.upper()
 
         # Check if the extracted level is valid
         if level in logging_levels:
@@ -381,19 +319,19 @@ class InferenceCounter:
 
                 line_annotator.annotate(frame=frame, line_counter=line_counter)
 
-                cv2.imshow("yolov5", frame)
+                cv2.imshow("yolo:", frame)
 
                 annotated_frames.append(frame)
 
                 if cv2.waitKey(30) == 27:
                     break
 
-            self.logger.info("-" * 100)
+            self.logger.info("*" * 100)
             self.logger.info(
                 f"TOTAL FISH OUT: {line_counter.out_count} \t TOTAL FISH IN: {line_counter.in_count} \t NET (moving right to left): {line_counter.out_count - line_counter.in_count}"
             )
             self.logger.info(f"total frame_detections: {sum(frame_detections)}")
-            self.logger.info("-" * 100)
+            self.logger.info("*" * 100)
 
             return (
                 frame_rate,
@@ -405,201 +343,6 @@ class InferenceCounter:
                 frame_detections
             )
 
-    def process_image(self, image_path):
-        # Implement the image processing logic here
-        pass
-
-def main(video_path, device="cpu", stream=True, show=True, tracker="../botsort.yaml"):
-    """
-    Process a video file with object detection and line counting.
-    
-    Args:
-        video_path (str): Path to the video file for processing.
-        device (str, optional): Device for inference. Defaults to "mps".
-        stream (bool, optional): Flag to stream the processed video. Defaults to True.
-        show (bool, optional): Flag to display the video window. Defaults to True.
-        tracker (str, optional): Path to the tracker configuration file. Defaults to "../botsort.yaml".
-        
-    Returns:
-        Tuple[float, List[sv.Frame], int, int, float, List[float]]: 
-        - Frame rate of the video.
-        - List of annotated frames.
-        - Total fish count moving out (right to left).
-        - Total fish count moving in (left to right).
-        - Duration of the video in seconds.
-        - List of relative frame times.
-    """
-    # Open the video file
-    assert os.path.exists(video_path)
-    video = cv2.VideoCapture(video_path)
-
-    # Read the first frame
-    ret, frame = video.read()
-
-    # Get the frame rate of the video
-    frame_rate = video.get(cv2.CAP_PROP_FPS)
-    total_frames = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
-    # Calculate the duration in seconds
-    duration_seconds = total_frames / frame_rate
-
-    # Calculate the time interval between frames
-    time_interval = 1.0 / frame_rate
-
-    # Get the frame size (width and height)
-    frame_height, frame_width, _ = frame.shape
-
-    # Define the start and end points of a line
-    LINE_START = sv.Point(int(frame_width / 3), 0)
-    LINE_END = sv.Point(int(frame_width / 3), frame_height)
-
-    # Create a line zone for counting
-    line_counter = sv.LineZone(start=LINE_START, end=LINE_END)
-
-    # Create annotators for line zone and bounding box
-    line_annotator = sv.LineZoneAnnotator(thickness=2, text_thickness=1, text_scale=0.2)
-    box_annotator = sv.BoxAnnotator(thickness=1, text_thickness=1, text_scale=0.3)
-
-    # frame_rate = cv2.VideoCapture(video_path).get(cv2.CAP_PROP_FPS)
-
-    annotated_frames = []
-    frame_detections = []
-    # Initialize the list to store relative frame times
-    relative_frame_times = []
-
-    # Iterate over the results of the YOLO model's track method
-    # Arguments can be found here: https://docs.ultralytics.com/modes/predict/#inference-arguments
-    assert os.path.exists(tracker)
-    for frame_index, result in enumerate(
-        model.track(
-            imgsz=frame_width, # default 640
-            source=video_path,
-            device=device,  # Uncomment for faster inference on M2 macbook
-            show=show,
-            stream=stream,
-            conf=0.525,  # 0.651
-            # conf=0.1, # default 0.25. Doesn't register as a detection
-            # iou=0.2, # default 0.7
-            tracker=tracker,
-        )
-    ):
-        frame = result.orig_img
-
-        # Calculate the relative time for the current frame
-        current_frame_time = frame_index * time_interval
-        relative_frame_times.append(current_frame_time)
-
-        # Convert the YOLO detection results to custom Detections format
-        #detections = sv.Detections.from_yolov8(result)
-        detections = sv.Detections.from_ultralytics(result)
-        if result.boxes.id is not None:
-            detections.tracker_id = result.boxes.id.cpu().numpy().astype(int)
-        # Generate labels for each detection
-        labels = [
-            f"tracker_id: {tracker_id} {model.model.names[class_id]} {confidence:0.2f}"
-            for _, _, confidence, class_id, tracker_id in detections
-        ]
-        if len(detections) > 0:
-            print("*" * 50)
-            print("labels::::", labels)
-            print("detections:::", detections)
-            # time.sleep(0.5)
-            print("*" * 50)
-            print()
-            frame_detections.append(len(detections))
-        else:
-            # No fish
-            frame_detections.append(0)
-
-        # Annotate the frame with bounding boxes and labels
-        frame = box_annotator.annotate(
-            scene=frame, detections=detections, labels=labels
-        )
-
-        # Update the line counter with the current detections
-        line_counter.trigger(detections=detections)
-
-        # Annotate the frame with line counter information
-        line_annotator.annotate(frame=frame, line_counter=line_counter)
-
-        # Display the frame with annotated information
-        cv2.imshow("yolov8", frame)
-
-        # Save frame to list
-        annotated_frames.append(frame)
-        # time.sleep(0.2)
-
-        if cv2.waitKey(30) == 27:
-            break
-    # video.release()
-    # Print the total fish count from the line counter
-    logger.info("-" * 100)
-    logger.info(
-        f"TOTAL FISH OUT: {line_counter.out_count} \t TOTAL FISH IN: {line_counter.in_count} \t NET (moving right to left): {line_counter.out_count - line_counter.in_count}"
-    )
-    logger.info(f"total frame_detections: {sum(frame_detections)}")
-    logger.info("-" * 100)
-    return (
-        frame_rate,
-        annotated_frames,
-        line_counter.out_count,
-        line_counter.in_count,
-        duration_seconds,
-        relative_frame_times,
-        frame_detections
-    )
-
-
-def write_frame_data_to_csv(frame_detections, relative_frame_times, video_fname, output_dir):
-    """
-    Write frame detections and relative frame times to a CSV file.
-
-    Args:
-        frame_detections (list): List of frame detections.
-        relative_frame_times (list): List of relative frame times.
-        video_fname (str): Name of the video file.
-        output_dir (str): Directory where the CSV file will be saved.
-    """
-    import csv
-    import json 
-    output_csv_path = os.path.join(output_dir, f"{video_fname}_detections.csv")
-
-    with open(output_csv_path, mode='w', newline='') as csvfile:
-        fieldnames = ['Frame', 'Detection', 'Relative Time']
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-
-        writer.writeheader()
-        for frame, detection, time in zip(range(len(frame_detections)), frame_detections, relative_frame_times):
-            writer.writerow({'Frame': frame, 'Detection': detection, 'Time': time})
-
-    print(f"Frame detections and relative frame times written to: {output_csv_path}")
-
-def write_counts_to_json(data, output_dir):
-    """
-    Write the fish counts to a JSON file.
-
-    Args:
-        data (dict): Dictionary containing the fish counts.
-        output_dir (str): Directory where the JSON file will be saved.
-    """
-    with open(os.path.join(output_dir, "video_counts.json"), "w") as file:
-        json_dumps_str = json.dumps(data, indent=4)
-        print(json_dumps_str, file=file)
-
-def parse_args(params):
-    """
-    Parse arguments from a dictionary.
-
-    Args:
-        params (dict): Dictionary containing arguments.
-
-    Returns:
-        Namespace: A namespace containing the parsed arguments.
-    """
-    import argparse
-    parser = argparse.ArgumentParser()
-    for key, value in params.items():
-        parser.add_argument(f"--{key}", default=value)
-    return parser.parse_args()
 
 if __name__ == "__main__":
     # Define the parameters
@@ -607,24 +350,20 @@ if __name__ == "__main__":
     # Measure memory usage before running the script
     start_memory = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
 
-    # Write annotated frames to local disk
+    # Set output dir to write results
     OUTPUT_DIR = os.path.join("/", "Users", "aus10powell", "Downloads")
 
+    # Get annotated frames and input video frame rate
     video_path =  "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/2_2018-04-14_10-06-19.mp4"
     tracker = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/botsort.yaml"
     model_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train133/weights/best.pt"
     herring_counter = InferenceCounter(device="cpu", tracker=tracker, model_path=model_path)
     frame_rate, annotated_frames, out_count, in_count, duration_seconds, relative_frame_times, frame_detections = herring_counter.run_inference(video_path=video_path)
 
-
-    # Get annotated frames and input video frame rate
-    # frame_rate, annotated_frames, out_count, in_count, duration_seconds, relative_frame_times, frame_detections = main(
-    #     video_path=video_path
-    # )
-    video_fname = video_path.split("/")[-1].split(".")[0] + "_annotated"
+    video_fname = get_annotated_video_name(video_path)
     output_video_path = os.path.join(
         OUTPUT_DIR, f"{video_fname}.mp4"
-    )  #  "/Users/aus10powell/Downloads/annotated_video.mp4"
+    ) 
     write_frames_to_file(
         annotated_frames=annotated_frames,
         output_video_path=output_video_path,

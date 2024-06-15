@@ -40,7 +40,7 @@ def set_logging_level(filename):
     else:
         logging.basicConfig(level=logging.INFO)  # Default to INFO level if level is not recognized
 
-    return logging
+    return return logging.getLogger(self.__class__.__name__)
 # Set logging level based on filename
 logger = set_logging_level(__file__)
 

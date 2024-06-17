@@ -118,10 +118,9 @@ class InferenceCounter:
             detections = sv.Detections.from_ultralytics(result)
             if result.boxes.id is not None:
                 detections.tracker_id = result.boxes.id.cpu().numpy().astype(int)
-            self.logger.error(f"frame_index: {frame_index} num detections: {len(detections)} {detections}")
             labels = [
                 f"tracker_id: {tracker_id} {self.model.model.names[class_id]} {confidence:0.2f}"
-                for _, _, confidence, class_id, tracker_id in detections
+                for idx, (bbox, _, confidence, class_id, tracker_id) in enumerate(detections)
             ]
             if len(detections) > 0:
                 frame_detections.append(len(detections))

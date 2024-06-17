@@ -46,13 +46,13 @@ class InferenceCounter:
 
         return logging.getLogger(self.__class__.__name__)
 
-    def run_inference(self, video_path, conf_threshold=0.525, stream=True, show=True):
+    def run_inference(self, video_path, conf_threshold=0.525, stream=True, show=False):
         """
         Run inference on a video file using the YOLO model.
 
         Args:
             video_path (str): Path to the video file.
-            stream (bool, optional): Flag to enable streaming of the processed video. Defaults to True.
+            stream (bool, optional): Flag to enable streaming of the processed video. Defaults to False. Needs to be set to True for the video to be displayed.
             show (bool, optional): Flag to display the video window. Defaults to True.
 
         Returns:
@@ -118,6 +118,7 @@ class InferenceCounter:
             detections = sv.Detections.from_ultralytics(result)
             if result.boxes.id is not None:
                 detections.tracker_id = result.boxes.id.cpu().numpy().astype(int)
+            self.logger.error(f"frame_index: {frame_index} num detections: {len(detections)} {detections}")
             labels = [
                 f"tracker_id: {tracker_id} {self.model.model.names[class_id]} {confidence:0.2f}"
                 for _, _, confidence, class_id, tracker_id in detections
@@ -135,11 +136,12 @@ class InferenceCounter:
 
             line_annotator.annotate(frame=frame, line_counter=line_counter)
 
-            cv2.imshow("yolo:", frame)
+            if show:
+                cv2.imshow("yolo:", frame)
 
             annotated_frames.append(frame)
 
-            if cv2.waitKey(30) == 27:
+            if cv2.waitKey(30) == 27 and show:
                 break
 
         self.logger.info("*" * 100)

@@ -1,5 +1,5 @@
 from video_utils import set_logging_level
-from inference_module import InferenceCounter
+from inference_modules import InferenceCounter
 import time
 import resource
 import os
@@ -46,10 +46,11 @@ if __name__ == "__main__":
 
     # Get annotated frames and input video frame rate
     video_path =  "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/2_2018-04-14_10-06-19.mp4"
+    video_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/1_2016-04-13_13-57-11.mp4"
     tracker = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/botsort.yaml"
     model_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train133/weights/best.pt"
     herring_counter = InferenceCounter(device="cpu", tracker=tracker, model_path=model_path)
-    frame_rate, annotated_frames, out_count, in_count, duration_seconds, relative_frame_times, frame_detections = herring_counter.run_inference(video_path=video_path)
+    frame_rate, annotated_frames, out_count, in_count, duration_seconds, relative_frame_times, frame_detections = herring_counter.run_inference(video_path=video_path, show=True)
 
     video_fname = get_annotated_video_name(video_path)
     output_video_path = os.path.join(

@@ -1,4 +1,4 @@
-# inference.py
+# inference_modules.py
 
 import cv2
 import time
@@ -6,11 +6,9 @@ from ultralytics import YOLO
 import supervision as sv
 import numpy as np
 import os
-from tqdm import tqdm
 import resource
-from datetime import timedelta
 import logging
-from video_utils import set_logging_level, get_processesor_type
+from .video_utils import set_logging_level, get_processesor_type
 
 class InferenceCounter:
     def __init__(self, device='cpu', tracker="botsort.yaml", model_path="yolov8s.pt"):

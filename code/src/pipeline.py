@@ -47,7 +47,8 @@ if __name__ == "__main__":
     # Get annotated frames and input video frame rate
     video_path =  "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/2_2018-04-14_10-06-19.mp4"
     video_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/1_2016-04-13_13-57-11.mp4"
-    tracker = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/botsort.yaml"
+    video_path = "/Users/aus10powell/Downloads/1_2024-05-27_09-00-01_762.mp4"
+    tracker = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/utils/tracking_configs/botsort.yaml"
     model_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train133/weights/best.pt"
     herring_counter = InferenceCounter(device="cpu", tracker=tracker, model_path=model_path)
     frame_rate, annotated_frames, out_count, in_count, duration_seconds, relative_frame_times, frame_detections = herring_counter.run_inference(video_path=video_path, show=True)

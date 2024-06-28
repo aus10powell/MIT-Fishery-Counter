@@ -13,7 +13,7 @@ import logging
 from video_utils import set_logging_level, get_processesor_type
 
 class InferenceCounter:
-    def __init__(self, device='cpu', tracker="../botsort.yaml", model_path="yolov8s.pt"):
+    def __init__(self, device='cpu', tracker="botsort.yaml", model_path="yolov8s.pt"):
         self.device = device
         self.tracker = tracker
         self.model = self.load_model(model_path)
@@ -65,8 +65,8 @@ class InferenceCounter:
                 - List: List of relative frame times.
                 - List: List of detection counts for each frame.
         """
-        assert os.path.exists(video_path)
-        assert os.path.exists(self.tracker)
+        assert os.path.exists(video_path), f"Video file not found at '{video_path}'"
+        assert os.path.exists(self.tracker), f"Tracker file not found at '{self.tracker}'"
         video = cv2.VideoCapture(video_path)
 
         _, frame = video.read()
@@ -173,7 +173,7 @@ if __name__ == "__main__":
 
     # Get annotated frames and input video frame rate
     video_path =  "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/2_2018-04-14_10-06-19.mp4"
-    tracker = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/botsort.yaml"
+    tracker = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/utils/tracking_configs/botsort.yaml"
     model_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train133/weights/best.pt"
     device = get_processesor_type()
     logger.info(f"Running inference on {video_path} using {device} processor.")

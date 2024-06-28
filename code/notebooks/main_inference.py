@@ -40,9 +40,9 @@ def set_logging_level(filename):
     else:
         logging.basicConfig(level=logging.INFO)  # Default to INFO level if level is not recognized
 
-    return return logging.getLogger(self.__class__.__name__)
+    return logging
 # Set logging level based on filename
-logger = set_logging_level(__file__)
+# logger = set_logging_level(__file__)
 
 
 
@@ -91,7 +91,7 @@ video_path8 = "/Users/aus10powell/Downloads/1_2024-04-24_12-00-01_726.mp4"
 video_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/santuit_2024/1_2024-04-24_12-00-01_726.mp4"
 
 # Gold standard coonameset 2024
-video_path = video_path1a# "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/coonameset_2024/1_2024-05-14_09-00-00_987.mp4"
+video_path = "/Users/aus10powell/Downloads/1_2024-05-27_09-00-01_762.mp4" #/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/coonameset_2024/1_2024-05-14_09-00-00_987.mp4"
 
 
 

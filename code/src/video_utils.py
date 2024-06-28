@@ -151,5 +151,7 @@ def get_processesor_type():
     import torch
     if torch.cuda.is_available():
         return "gpu"
+    # elif torch.backends.mps.is_built():
+    #     return "mps"
     else:
         return "cpu"

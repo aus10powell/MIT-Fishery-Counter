@@ -1,4 +1,13 @@
+# video_utils.py
+
 import logging
+import cv2
+import csv
+import json
+import os
+import re
+from datetime import timedelta
+
 def set_logging_level(filename):
     """
     Set logging level based on the filename.
@@ -25,6 +34,8 @@ def set_logging_level(filename):
 
     return logging.getLogger(filename)
 
+logger = set_logging_level(__file__ + ":" + __name__)
+
 def get_annotated_video_name(video_path):
     """
     Generate annotated video file name from the given video path.
@@ -48,8 +59,6 @@ def write_frame_data_to_csv(frame_detections, relative_frame_times, video_fname,
         video_fname (str): Name of the video file.
         output_dir (str): Directory where the CSV file will be saved.
     """
-    import csv
-    import json 
     output_csv_path = os.path.join(output_dir, f"{video_fname}_detections.csv")
 
     with open(output_csv_path, mode='w', newline='') as csvfile:
@@ -57,10 +66,11 @@ def write_frame_data_to_csv(frame_detections, relative_frame_times, video_fname,
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
         writer.writeheader()
-        for frame, detection, time in zip(range(len(frame_detections)), frame_detections, relative_frame_times):
-            writer.writerow({'Frame': frame, 'Detection': detection, 'Time': time})
+        for frame_index, (detection, time) in enumerate(zip(frame_detections, relative_frame_times)):
+            writer.writerow({'Frame': frame_index, 'Detection': detection, 'Relative Time': time})
 
     print(f"Frame detections and relative frame times written to: {output_csv_path}")
+
 
 def write_frames_to_file(
     annotated_frames=None, output_video_path="annotated_video.mp4", fps=30
@@ -123,6 +133,7 @@ def write_counts_to_json(data, output_dir):
     with open(os.path.join(output_dir, "video_counts.json"), "w") as file:
         json_dumps_str = json.dumps(data, indent=4)
         print(json_dumps_str, file=file)
+    logger.info(f"Fish counts written to: {output_dir}/video_counts.json")
 
 def create_timestamps(relative_frame_times, reference_datetime, format_string="%Y-%m-%d %H:%M:%S.%f"):
   """
@@ -146,12 +157,11 @@ def create_timestamps(relative_frame_times, reference_datetime, format_string="%
 
 def get_processesor_type():
     """
-    Get the type of processor available on the system.
+    Get the available processor types.
     """
-    import torch
+    processor_type = {"cpu": True, "gpu": False, "mps": False}
     if torch.cuda.is_available():
-        return "gpu"
-    # elif torch.backends.mps.is_built():
-    #     return "mps"
-    else:
-        return "cpu"
+        processor_type["gpu"] = True
+    if torch.backends.mps.is_built():
+        processor_type["mps"] = True
+    return processor_type

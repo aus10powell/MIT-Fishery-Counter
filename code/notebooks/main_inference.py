@@ -254,7 +254,7 @@ def create_timestamps(relative_frame_times, reference_datetime, format_string="%
   return timestamps
 
 
-def main(video_path, device="cpu", stream=True, show=True, tracker="../botsort.yaml"):
+def main(video_path, device="cpu", stream=True, show=True, tracker="/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/src/utils/tracking_configs/botsort.yaml"):
     """
     Process a video file with object detection and line counting.
     
@@ -275,7 +275,7 @@ def main(video_path, device="cpu", stream=True, show=True, tracker="../botsort.y
         - List of relative frame times.
     """
     # Open the video file
-    assert os.path.exists(video_path)
+    assert os.path.exists(video_path), f"no video found at {video_path}"
     video = cv2.VideoCapture(video_path)
 
     # Read the first frame
@@ -313,7 +313,7 @@ def main(video_path, device="cpu", stream=True, show=True, tracker="../botsort.y
 
     # Iterate over the results of the YOLO model's track method
     # Arguments can be found here: https://docs.ultralytics.com/modes/predict/#inference-arguments
-    assert os.path.exists(tracker)
+    assert os.path.exists(tracker), f"No tracker found at {tracker}"
     for frame_index, result in enumerate(
         model.track(
             imgsz=frame_width, # default 640

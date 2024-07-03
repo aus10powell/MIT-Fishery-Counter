@@ -6,11 +6,12 @@ import resource
 import os
 import video_utils
 
-logger = video_utils.set_logging_level(__file__ + ":" + __name__)   
+logger = video_utils.set_logging_level(__file__ + ":" + __name__)
 
 
-
-def process_video_analysis(video_path, OUTPUT_DIR, tracker, model_path, write_to_local=True):
+def process_video_analysis(
+    video_path, OUTPUT_DIR, tracker, model_path, write_to_local=True
+):
     """
     Process video analysis including inference, frame writing, timestamp creation,
     CSV and JSON writing, and memory and time logging.
@@ -29,8 +30,18 @@ def process_video_analysis(video_path, OUTPUT_DIR, tracker, model_path, write_to
     start_memory = resource.getrusage(resource.RUSAGE_SELF).ru_maxrss
 
     # Perform inference and get results
-    herring_counter = InferenceCounter(device="cpu", tracker=tracker, model_path=model_path)
-    frame_rate, annotated_frames, out_count, in_count, duration_seconds, relative_frame_times, frame_object_detections = herring_counter.run_inference(video_path=video_path, show=True)
+    herring_counter = InferenceCounter(
+        device="cpu", tracker=tracker, model_path=model_path
+    )
+    (
+        frame_rate,
+        annotated_frames,
+        out_count,
+        in_count,
+        duration_seconds,
+        relative_frame_times,
+        frame_object_detections,
+    ) = herring_counter.run_inference(video_path=video_path, show=True)
 
     # Get video filename
     video_fname = video_utils.get_annotated_video_name(video_path)
@@ -44,10 +55,14 @@ def process_video_analysis(video_path, OUTPUT_DIR, tracker, model_path, write_to
     )
 
     # Extract reference datetime from filename
-    video_reference_datetime = video_utils.extract_datetime_from_filename(filename=video_path)
+    video_reference_datetime = video_utils.extract_datetime_from_filename(
+        filename=video_path
+    )
 
     # Create formatted timestamps based on reference datetime and relative times
-    formatted_timestamps = video_utils.create_timestamps(relative_frame_times, video_reference_datetime)
+    formatted_timestamps = video_utils.create_timestamps(
+        relative_frame_times, video_reference_datetime
+    )
 
     # Write frame data to CSV
     # video_utils.write_frame_data_to_csv(frame_object_detections, formatted_timestamps, video_fname, OUTPUT_DIR)
@@ -82,6 +97,7 @@ def process_video_analysis(video_path, OUTPUT_DIR, tracker, model_path, write_to
     # Return processed data dictionary
     return data
 
+
 def parse_args(params):
     """
     Parse arguments from a dictionary.
@@ -93,14 +109,16 @@ def parse_args(params):
         Namespace: A namespace containing the parsed arguments.
     """
     import argparse
+
     parser = argparse.ArgumentParser()
     for key, value in params.items():
         parser.add_argument(f"--{key}", default=value)
     return parser.parse_args()
 
+
 def main():
     # Set logging level based on filename
-    logger = video_utils.set_logging_level( __file__  + ":" + __name__)
+    logger = video_utils.set_logging_level(__file__ + ":" + __name__)
     # Define the parameters. Set at defaults.
     params = {
         "data_config": "data.yaml",
@@ -108,9 +126,11 @@ def main():
         "imgsize": 640,
         "epochs": 100,
         "dropout": 0.5,
-        "batch": 16}
+        "batch": 16,
+    }
     args = parse_args(params)
     logger.info("Starting the main function with the following arguments: %s", args)
+
 
 if __name__ == "__main__":
     # Set output dir to write results
@@ -124,5 +144,7 @@ if __name__ == "__main__":
     video_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/1_2016-04-22_12-36-58.mp4"
     tracker = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/utils/tracking_configs/botsort.yaml"
     model_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train133/weights/best.pt"
-    processed_data = process_video_analysis(video_path, OUTPUT_DIR, tracker, model_path, write_to_local=True)
+    processed_data = process_video_analysis(
+        video_path, OUTPUT_DIR, tracker, model_path, write_to_local=True
+    )
     print(processed_data)  # Example of using the returned data dictionary

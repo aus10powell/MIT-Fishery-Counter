@@ -10,8 +10,9 @@ import resource
 import logging
 from video_utils import set_logging_level, get_processesor_type
 
+
 class InferenceCounter:
-    def __init__(self, device='cpu', tracker="botsort.yaml", model_path="yolov8s.pt"):
+    def __init__(self, device="cpu", tracker="botsort.yaml", model_path="yolov8s.pt"):
         self.device = device
         self.tracker = tracker
         self.model = self.load_model(model_path)
@@ -33,14 +34,16 @@ class InferenceCounter:
             "INFO": logging.INFO,
             "WARNING": logging.WARNING,
             "ERROR": logging.ERROR,
-            "CRITICAL": logging.CRITICAL
+            "CRITICAL": logging.CRITICAL,
         }
 
         # Check if the extracted level is valid
         if level in logging_levels:
             logging.basicConfig(level=logging_levels[level])
         else:
-            logging.basicConfig(level=logging.INFO)  # Default to INFO level if level is not recognized
+            logging.basicConfig(
+                level=logging.INFO
+            )  # Default to INFO level if level is not recognized
 
         return logging.getLogger(self.__class__.__name__)
 
@@ -64,7 +67,9 @@ class InferenceCounter:
                 - List: List of detection counts for each frame.
         """
         assert os.path.exists(video_path), f"Video file not found at '{video_path}'"
-        assert os.path.exists(self.tracker), f"Tracker file not found at '{self.tracker}'"
+        assert os.path.exists(
+            self.tracker
+        ), f"Tracker file not found at '{self.tracker}'"
         video = cv2.VideoCapture(video_path)
 
         _, frame = video.read()
@@ -78,7 +83,9 @@ class InferenceCounter:
         LINE_START = sv.Point(int(frame_width / 3), 0)
         LINE_END = sv.Point(int(frame_width / 3), frame_height)
         line_counter = sv.LineZone(start=LINE_START, end=LINE_END)
-        line_annotator = sv.LineZoneAnnotator(thickness=2, text_thickness=1, text_scale=0.2)
+        line_annotator = sv.LineZoneAnnotator(
+            thickness=2, text_thickness=1, text_scale=0.2
+        )
         box_annotator = sv.BoxAnnotator(thickness=1, text_thickness=1, text_scale=0.3)
 
         parameters = {
@@ -89,7 +96,9 @@ class InferenceCounter:
             "frame_rate": frame_rate,
             "confidence_threshold": conf_threshold,
         }
-        self.logger.info("********** Running inference with the following parameters: **********")
+        self.logger.info(
+            "********** Running inference with the following parameters: **********"
+        )
         self.logger.info(parameters)
         self.logger.info("-" * 100)
 
@@ -118,7 +127,9 @@ class InferenceCounter:
                 detections.tracker_id = result.boxes.id.cpu().numpy().astype(int)
             labels = [
                 f"tracker_id: {tracker_id} {self.model.model.names[class_id]} {confidence:0.2f}"
-                for idx, (bbox, _, confidence, class_id, tracker_id) in enumerate(detections)
+                for idx, (bbox, _, confidence, class_id, tracker_id) in enumerate(
+                    detections
+                )
             ]
             if len(detections) > 0:
                 frame_detections.append(len(detections))
@@ -155,8 +166,9 @@ class InferenceCounter:
             line_counter.in_count,
             duration_seconds,
             relative_frame_times,
-            frame_detections
+            frame_detections,
         )
+
 
 if __name__ == "__main__":
     # Define the parameters
@@ -170,12 +182,24 @@ if __name__ == "__main__":
     logger = set_logging_level(__file__ + ":" + __name__)
 
     # Get annotated frames and input video frame rate
-    video_path =  "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/2_2018-04-14_10-06-19.mp4"
+    video_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/2_2018-04-14_10-06-19.mp4"
     tracker = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/utils/tracking_configs/botsort.yaml"
     model_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train133/weights/best.pt"
     device = get_processesor_type()
     logger.info(f"Running inference on {video_path} using {device} processor.")
-    herring_counter = InferenceCounter(device=device, tracker=tracker, model_path=model_path)
-    frame_rate, annotated_frames, out_count, in_count, duration_seconds, relative_frame_times, frame_detections = herring_counter.run_inference(video_path=video_path)
+    herring_counter = InferenceCounter(
+        device=device, tracker=tracker, model_path=model_path
+    )
+    (
+        frame_rate,
+        annotated_frames,
+        out_count,
+        in_count,
+        duration_seconds,
+        relative_frame_times,
+        frame_detections,
+    ) = herring_counter.run_inference(video_path=video_path)
 
-    logger.info(f"incount: {in_count} outcount: {out_count} duration: {duration_seconds} frame_rate: {frame_rate}")
+    logger.info(
+        f"incount: {in_count} outcount: {out_count} duration: {duration_seconds} frame_rate: {frame_rate}"
+    )

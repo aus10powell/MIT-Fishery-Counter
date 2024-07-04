@@ -4,7 +4,7 @@ from inference_modules import InferenceCounter
 import time
 import resource
 import os
-import video_utils
+import utils.video_utils
 
 logger = video_utils.set_logging_level(__file__ + ":" + __name__)
 

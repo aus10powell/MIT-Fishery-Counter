@@ -8,7 +8,7 @@ import numpy as np
 import os
 import resource
 import logging
-from video_utils import set_logging_level, get_processesor_type
+from .utils.video_utils import set_logging_level, get_processesor_type
 
 
 class InferenceCounter:

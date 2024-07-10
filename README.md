@@ -1,11 +1,11 @@
 # MIT Fishery Counter
 ![Red Herring](./pics/RedHerring.png)
 
+
 ### Contributors
 * *Robert Vincent (Research Advisor)*
 * *Austin Powell (Contributor)*
 * *Lydia Zuehsow (Contributor)*
-* *Blaine Gilbreth (Contributor)*
 
 ## Project Description
 Fisheries populations have a large impact on the U.S. economy. Each year the U.S. fishing industry contributes 90 billion dollars and 1.5 million jobs to the U.S. economy. Each species may serve as a predator or prey for another. In this regard, fisheries populations are interconnected and dependent. While humans may depend on these populations as a source of sustenance (food, goods, etc.), humans can also negatively impact population growth. Barriers to migration, pollution, overfishing, and other forms of human-interference may impact spawning patterns of fisheries species. In 2014, 17% of U.S. fisheries were classified as overfished. Therefore, it is necessary to monitor these fisheries populations to determine when policy must be changed in efforts to maintain healthy oceans.
@@ -147,4 +147,44 @@ Currently linking to Dropbox folders for large files
    - Experimented with dropout variations and limited image augmentations for improved tracking results from 22% counting to 15% counting error (MAPE). 
   
 5. **New Fishery Site Tuning**
-   - Developed model specifc for other site
+   - Developed model specifc for other site,\
+   
+## Contribution Guidelines
+
+We welcome contributions to our project! If you're interested in helping, here's how you can do it:
+
+1. **Fork the repository**: Start by forking the repository to your own GitHub account.
+
+2. **Clone the repository**: Clone the forked repository to your local machine to start making changes.
+
+    ```
+    git clone git@github.com:aus10powell/MIT-Fishery-Counter.git
+    ```
+
+3. **Create a new branch**: Before making your changes, switch to a new branch. This helps in keeping the main branch stable and simplifies the process of integrating your changes.
+
+    ```
+    git checkout -b feature-name
+    ```
+
+4. **Make your changes**: Implement the changes you wish to make. Make sure to keep your code clean and well-documented.
+
+5. **Commit your changes**: Once you're satisfied with your changes, commit them to your branch. Make sure your commit messages are clear and descriptive.
+
+    ```
+    git commit -am "Add a concise and descriptive commit message"
+    ```
+
+6. **Push your changes**: Push your changes to your fork on GitHub.
+
+    ```
+    git push origin feature-name
+    ```
+
+7. **Submit a pull request**: Go to the original repository on GitHub, and you'll see a prompt to submit a pull request from your new branch. Fill in the details of your pull request, explaining the changes you've made and their impact.
+
+8. **Respond to feedback**: Once your pull request is submitted, the project maintainers may provide feedback. Be open to making further changes based on their suggestions.
+
+9. **Get merged**: If your changes are approved, they will be merged into the main project. Congratulations, you've successfully contributed!
+
+Thank you for your contributions!

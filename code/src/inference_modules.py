@@ -8,7 +8,7 @@ import numpy as np
 import os
 import resource
 import logging
-from .utils.video_utils import set_logging_level, get_processesor_type
+from utils.video_utils import set_logging_level, get_processesor_type
 
 
 class InferenceCounter:
@@ -182,7 +182,7 @@ if __name__ == "__main__":
     logger = set_logging_level(__file__ + ":" + __name__)
 
     # Get annotated frames and input video frame rate
-    video_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/2_2018-04-14_10-06-19.mp4"
+    video_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/irwa/1_2016-04-22_12-36-58.mp4"
     tracker = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/utils/tracking_configs/botsort.yaml"
     model_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train133/weights/best.pt"
     device = get_processesor_type()

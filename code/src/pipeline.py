@@ -4,7 +4,7 @@ from inference_modules import InferenceCounter
 import time
 import resource
 import os
-import utils.video_utils
+from utils import video_utils
 
 logger = video_utils.set_logging_level(__file__ + ":" + __name__)
 
@@ -141,8 +141,8 @@ if __name__ == "__main__":
     # video_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/1_2016-04-13_13-57-11.mp4"
     # video_path = "/Users/aus10powell/Downloads/1_2024-05-27_09-00-01_762.mp4"
     # Short 10 second video IRWA
-    video_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/1_2016-04-22_12-36-58.mp4"
-    tracker = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/utils/tracking_configs/botsort.yaml"
+    video_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/irwa/1_2016-04-22_12-36-58.mp4"
+    tracker = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/src/utils/tracking_configs/botsort.yaml"
     model_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train133/weights/best.pt"
     processed_data = process_video_analysis(
         video_path, OUTPUT_DIR, tracker, model_path, write_to_local=True

@@ -179,6 +179,8 @@ We welcome contributions to our project! If you're interested in helping, here's
 
 4. **Make your changes**: Implement the changes you wish to make. Make sure to keep your code clean and well-documented.
 
+4a. **Make sure tests and coverage are updated**
+
 5. **Commit your changes**: Once you're satisfied with your changes, commit them to your branch. Make sure your commit messages are clear and descriptive.
 
     ```

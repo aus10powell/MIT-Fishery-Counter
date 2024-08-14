@@ -1,14 +1,16 @@
 # inference_modules.py
 
-import cv2
-import time
-from ultralytics import YOLO
-import supervision as sv
-import numpy as np
+import logging
 import os
 import resource
-import logging
-from utils.video_utils import set_logging_level, get_processesor_type
+import time
+
+import cv2
+import numpy as np
+import supervision as sv
+from ultralytics import YOLO
+
+from utils.video_utils import get_processesor_type, set_logging_level
 
 
 class InferenceCounter:

@@ -1,9 +1,10 @@
 # pipeline.py
 
-from inference_modules import InferenceCounter
-import time
-import resource
 import os
+import resource
+import time
+
+from inference_modules import InferenceCounter
 from utils import video_utils
 
 logger = video_utils.set_logging_level(__file__ + ":" + __name__)

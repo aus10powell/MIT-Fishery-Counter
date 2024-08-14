@@ -136,7 +136,7 @@ Currently linking to Dropbox folders for large files
 
 ### Testing
 1.  ```cd code/tests```
-2. Run the tests ```pytest tests``` code coverage % can be run also ```pytest cov=tests tests```
+2. Run the tests ```pytest tests``` code coverage % can be run also: ```pytest cov=tests tests``` and showing missing lines: ```pytest --cov=tests --cov-report term-missing tests```
 
 ### Pipeline Version Changes
 

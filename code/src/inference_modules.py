@@ -10,7 +10,7 @@ import numpy as np
 import supervision as sv
 from ultralytics import YOLO
 
-from utils.video_utils import get_processesor_type, set_logging_level
+from .utils.video_utils import get_processesor_type, set_logging_level
 
 
 class InferenceCounter:

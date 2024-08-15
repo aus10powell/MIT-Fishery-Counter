@@ -21,3 +21,10 @@ def test_write_counts_to_json():
     }
     video_utils.write_counts_to_json(data, "/tmp")
     assert True
+
+# def test_write_frames_to_file():
+#     """Expected behavior for output inference
+#     """
+#     annotated_frames = [1, 2, 3, 4, 5]
+#     video_utils.write_frames_to_file(annotated_frames, "/tmp")
+#     assert True

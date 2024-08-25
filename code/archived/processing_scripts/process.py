@@ -17,7 +17,9 @@ Usage:
 
 
 def main():
-    import glob, os, sys
+    import glob
+    import os
+    import sys
 
     # Current directory
     images_dir = sys.argv[1]

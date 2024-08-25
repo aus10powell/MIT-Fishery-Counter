@@ -8,14 +8,14 @@
 # python3 test2.py --video=/Users/apowell/Downloads/sampleFull.avi --device 'cpu'
 # sampleFull.avi
 
-import cv2 as cv
 import argparse
-import sys
-import numpy as np
 import os.path
-import matplotlib.pyplot as plt
-from test_utils import *
+import sys
 
+import cv2 as cv
+import matplotlib.pyplot as plt
+import numpy as np
+from test_utils import *
 
 # Initialize the parameters
 confThreshold = 0.1  # Confidence threshold

@@ -3,12 +3,13 @@ Description:
 
 Classes and functions needed to make inference
 """
-import cv2
-import time
-import sys
-import numpy as np
 import os.path
+import sys
+import time
+
+import cv2
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 class FishCounter(object):

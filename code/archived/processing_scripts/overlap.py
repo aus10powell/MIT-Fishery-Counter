@@ -2,8 +2,8 @@
 # Date:         5/31/2017
 # Description:  Detect overlap in VOC XML files
 
-import sys
 import os
+import sys
 import xml.etree.ElementTree as ET
 
 

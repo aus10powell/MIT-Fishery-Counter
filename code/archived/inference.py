@@ -8,22 +8,23 @@
 # python3 test2.py --video=/Users/apowell/Downloads/sampleFull.avi --device 'cpu'
 # sampleFull.avi
 
-import cv2 as cv
 import argparse
-import sys
-import numpy as np
-import os.path
 import os
+import os.path
+import sys
+
+import cv2 as cv
 import matplotlib
+import numpy as np
 import streamlit as st
 
 matplotlib.use("Agg")
-from inference_utils import *
-from PIL import Image, ImageOps
 import logging
 
 # Custom
 from centroidtracker import CentroidTracker
+from inference_utils import *
+from PIL import Image, ImageOps
 
 # Set default static images for testing while working locally
 DEFAULT_IMAGE = "/Users/apowell/Downloads/HerringInTrap.JPG"

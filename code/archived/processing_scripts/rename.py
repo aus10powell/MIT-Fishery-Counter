@@ -3,9 +3,10 @@
 # Description:  This script updates all .xml files in the same directory with a new path and folder name. Run this script from the same directory as the .xml files.
 # Syntax:       python rename.py
 
-import sys
 import os
+import sys
 import xml.etree.ElementTree as ET
+
 
 def main():
     

@@ -8,14 +8,14 @@ training data. The left half is left untouched.
 Usage: 
     python python code/flip-mirror.py data/rv_boxed_herring/Images  
 """
+import glob
+import os
 # Utility
 import sys
-import os
-import glob
-from tqdm import tqdm
 
 # Image
 from PIL import Image, ImageOps
+from tqdm import tqdm
 
 
 def main():

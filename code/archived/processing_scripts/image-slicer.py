@@ -8,8 +8,8 @@ saved in both the image directory and the current directory.
 Usage: python image-slicer.py
 """
 
-import sys
 import os
+import sys
 
 
 def main():

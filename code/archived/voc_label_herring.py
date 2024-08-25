@@ -1,7 +1,7 @@
-import xml.etree.ElementTree as ET
-import pickle
 import os
-from os import listdir, getcwd
+import pickle
+import xml.etree.ElementTree as ET
+from os import getcwd, listdir
 from os.path import join
 
 # sets=[('2012', 'train'), ('2012', 'val'), ('2007', 'train'), ('2007', 'val'), ('2007', 'test')]

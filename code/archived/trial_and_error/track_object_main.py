@@ -1,5 +1,6 @@
-import cv2
 import sys
+
+import cv2
 
 cap = cv2.VideoCapture("/Users/apowell/Downloads/1_2016-04-13_13-57-11.mp4")
 

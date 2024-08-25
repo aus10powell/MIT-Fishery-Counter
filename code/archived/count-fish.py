@@ -9,8 +9,9 @@ Usage:        python count-fish.py image_folder_path data_file_path cfg_file_pat
               * data_file_path: path to weights
 """
 
-import sys
 import os
+import sys
+
 
 # Returns integer value for confidence
 def cleanConfidence(confidence):

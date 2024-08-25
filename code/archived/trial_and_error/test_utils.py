@@ -1,9 +1,10 @@
-import cv2 as cv
 import argparse
-import sys
-import numpy as np
 import os.path
+import sys
+
+import cv2 as cv
 import matplotlib.pyplot as plt
+import numpy as np
 
 
 def getOutputsNames(net, frame):

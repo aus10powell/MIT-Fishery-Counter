@@ -1,20 +1,19 @@
-import cv2
-import logging
-import time
-from ultralytics import YOLO
-import supervision as sv
-import numpy as np
-import json
+import inspect
 import io
-import time
+import json
 import logging
 import os
-from tqdm import tqdm
-import resource
 import re
+import resource
+import time
 from datetime import timedelta
+
+import cv2
+import numpy as np
 import pandas as pd
-import inspect
+import supervision as sv
+from tqdm import tqdm
+from ultralytics import YOLO
 
 
 def set_logging_level(filename):

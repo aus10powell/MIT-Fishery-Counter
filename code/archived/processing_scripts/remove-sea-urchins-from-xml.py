@@ -2,8 +2,8 @@
 # Date:         7/12/2017
 # Description:  Remove all sea urchin objects from xml in directory
 
-import sys
 import os
+import sys
 import xml.etree.ElementTree as ET
 
 

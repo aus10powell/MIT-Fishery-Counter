@@ -1,5 +1,6 @@
-import cv2
 import sys
+
+import cv2
 
 """
 Script to draw initial bounding box around object to be tracked. Can test out tracking

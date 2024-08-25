@@ -8,8 +8,9 @@ are saved into separate csv files for each class.
 Usage: python calculate-recalls.py txtDirectoryPath
 """
 
-import sys
 import os
+import sys
+
 
 # Defines ground truth detections of a single class for each image based on each Darknet text file in the specified txtDirectoryPath.
 # Returns a dictionary pairing the ground truth number of the specified className with each image.

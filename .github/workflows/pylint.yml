@@ -31,7 +31,7 @@ jobs:
 
       - name: Run tests
         run: |
-          pytest code/tests
+          pytest code/tests 
 
       - name: Run tests with coverage
         run: |

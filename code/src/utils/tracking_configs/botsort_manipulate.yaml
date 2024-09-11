@@ -1,0 +1,10 @@
+appearance_thresh: 0.1
+cmc_method: sparseOptFlow
+match_thresh: 0.99
+new_track_thresh: 0.6
+proximity_thresh: 0.2
+track_buffer: 30
+track_high_thresh: 0.8
+track_low_thresh: 0.5
+tracker_type: botsort
+with_reid: false

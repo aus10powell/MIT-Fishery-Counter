@@ -1,5 +1,6 @@
 # MIT Fishery Counter
 ![Red Herring](./pics/RedHerring.png)
+[![Testing](https://github.com/aus10powell/MIT-Fishery-Counter/actions/workflows/pylint.yml/badge.svg?branch=main)](https://github.com/aus10powell/MIT-Fishery-Counter/actions/workflows/pylint.yml)
 
 ### QA Chatbot: Ask questions about this repository [here](https://huggingface.co/chat/conversation/66b2a6ee5141de599b9cb1c1)
 <a href="https://huggingface.co/chat/conversation/66b2a6ee5141de599b9cb1c1">
@@ -15,6 +16,25 @@
 Fisheries populations have a large impact on the U.S. economy. Each year the U.S. fishing industry contributes 90 billion dollars and 1.5 million jobs to the U.S. economy. Each species may serve as a predator or prey for another. In this regard, fisheries populations are interconnected and dependent. While humans may depend on these populations as a source of sustenance (food, goods, etc.), humans can also negatively impact population growth. Barriers to migration, pollution, overfishing, and other forms of human-interference may impact spawning patterns of fisheries species. In 2014, 17% of U.S. fisheries were classified as overfished. Therefore, it is necessary to monitor these fisheries populations to determine when policy must be changed in efforts to maintain healthy oceans.
 
 Many groups, including NOAA Fisheries, state agencies, as well as regional fisheries councils and local municipalities, deploy camera and video equipment to monitor fisheries populations. Large amounts of video and photographic data are gathered at timed intervals. However, not all photos contain aquatic life. Currently, employees at these agencies among others are responsible for manually annotating the gathered videos and photos; this means they identify and count the relevant aquatic specimens in the data. Not only is this an inefficient use of time and resources, but also it can lead to inaccurate results due to human error. NOAA Fisheries Management can make a significant improvement in time and resource use through automation of the annotation process.
+
+## Table of Contents
+
+- [Project Description](#project-description)
+- [Current Methods](#current-methods)
+  - [Training](#training)
+  - [ML System Design Planning](#ml-system-design-planning)
+  - [Original Setup](#original-setup)
+    - [Labeling](#labeling)
+    - [Training](#training-1)
+- [Quick Start](#quick-start)
+- [Testing](#testing)
+- [Pipeline Version Changes](#pipeline-version-changes)
+  - [Model Enhancement (Version 1)](#model-enhancement-version-1)
+  - [Insights and Optimization (Version 2)](#insights-and-optimization-version-2)
+  - [Labeling Strategies (Version 3)](#labeling-strategies-version-3)
+  - [Augmentation Strategies (Version 4)](#augmentation-strategies-version-4)
+  - [New Fishery Site Tuning](#new-fishery-site-tuning)
+- [Contribution Guidelines](#contribution-guidelines)
 
 ## Objectives:
 1. Identify fish as River Herring and Not River Herring (or by individual species)

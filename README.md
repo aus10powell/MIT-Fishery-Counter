@@ -1,6 +1,8 @@
 # MIT Fishery Counter
 ![Red Herring](./pics/RedHerring.png)
 
+[![Testing](https://github.com/aus10powell/MIT-Fishery-Counter/actions/workflows/pylint.yml/badge.svg)](https://github.com/aus10powell/MIT-Fishery-Counter/actions/workflows/pylint.yml)
+
 ### Contributors
 * *Robert Vincent (Research Advisor)*
 * *Austin Powell (Contributor)*

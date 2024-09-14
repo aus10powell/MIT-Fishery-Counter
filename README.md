@@ -1,11 +1,5 @@
 # MIT Fishery Counter
 ![Red Herring](./pics/RedHerring.png)
-[![Testing](https://github.com/aus10powell/MIT-Fishery-Counter/actions/workflows/pylint.yml/badge.svg?branch=main)](https://github.com/aus10powell/MIT-Fishery-Counter/actions/workflows/pylint.yml)
-
-### QA Chatbot: Ask questions about this repository [here](https://huggingface.co/chat/conversation/66b2a6ee5141de599b9cb1c1)
-<a href="https://huggingface.co/chat/conversation/66b2a6ee5141de599b9cb1c1">
-    <img src="./pics/ChatbotImage.png" alt="QA Chatbot: Ask questions about this repository">
-</a>
 
 ### Contributors
 * *Robert Vincent (Research Advisor)*

@@ -126,7 +126,7 @@ def main(params):
     tracker = args.tracker
     model_path = args.model_path
     logger.info(f"Starting the main function with the following arguments: {args}")
-    processed_data = process_video_analysis(
+    return process_video_analysis(
         video_path, OUTPUT_DIR, tracker, model_path, write_to_local=True
     )
 
@@ -149,4 +149,4 @@ if __name__ == "__main__":
         "model_path": model_path,
         "write_to_local": True
     }
-    main(params)
+    processed_data = main(params)

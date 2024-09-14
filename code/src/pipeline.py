@@ -117,21 +117,18 @@ def parse_args(params):
     return parser.parse_args()
 
 
-def main():
+def main(params):
     # Set logging level based on filename
     logger = video_utils.set_logging_level(__file__ + ":" + __name__)
-    # Define the parameters. Set at defaults.
-    params = {
-        "data_config": "data.yaml",
-        "model": "yolov8s",
-        "imgsize": 640,
-        "epochs": 100,
-        "dropout": 0.5,
-        "batch": 16,
-    }
     args = parse_args(params)
-    logger.info("Starting the main function with the following arguments: %s", args)
-
+    video_path = args.video_path
+    OUTPUT_DIR = args.OUTPUT_DIR
+    tracker = args.tracker
+    model_path = args.model_path
+    logger.info(f"Starting the main function with the following arguments: {args}")
+    processed_data = process_video_analysis(
+        video_path, OUTPUT_DIR, tracker, model_path, write_to_local=True
+    )
 
 if __name__ == "__main__":
     # Set output dir to write results
@@ -145,7 +142,11 @@ if __name__ == "__main__":
     video_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/irwa/1_2016-04-22_12-36-58.mp4"
     tracker = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/src/utils/tracking_configs/botsort.yaml"
     model_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/code/notebooks/runs/detect/train133/weights/best.pt"
-    processed_data = process_video_analysis(
-        video_path, OUTPUT_DIR, tracker, model_path, write_to_local=True
-    )
-    print(processed_data)  # Example of using the returned data dictionary
+    params = {
+        "video_path": video_path,
+        "OUTPUT_DIR": OUTPUT_DIR,
+        "tracker": tracker,
+        "model_path": model_path,
+        "write_to_local": True
+    }
+    main(params)

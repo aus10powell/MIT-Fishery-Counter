@@ -4,8 +4,8 @@ import os
 import resource
 import time
 
-from inference_modules import InferenceCounter
-from utils import video_utils
+from src.inference_modules import InferenceCounter
+from src.utils import video_utils
 
 logger = video_utils.set_logging_level(__file__ + ":" + __name__)
 
@@ -114,17 +114,26 @@ def parse_args(params):
     parser = argparse.ArgumentParser()
     for key, value in params.items():
         parser.add_argument(f"--{key}", default=value)
-    return parser.parse_args()
+    args_list = [f"--{key}={value}" for key, value in params.items()]
+    return parser.parse_args(args_list)
 
 
 def main(params):
     # Set logging level based on filename
     logger = video_utils.set_logging_level(__file__ + ":" + __name__)
+    
+    # Ensure all required parameters are present
+    required_params = ["video_path", "OUTPUT_DIR", "tracker", "model_path"]
+    for param in required_params:
+        if param not in params:
+            raise TypeError(f"Missing required parameter: {param}")
+    
     args = parse_args(params)
     video_path = args.video_path
     OUTPUT_DIR = args.OUTPUT_DIR
     tracker = args.tracker
     model_path = args.model_path
+    
     logger.info(f"Starting the main function with the following arguments: {args}")
     return process_video_analysis(
         video_path, OUTPUT_DIR, tracker, model_path, write_to_local=True

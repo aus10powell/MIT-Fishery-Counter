@@ -5,7 +5,7 @@
 To run the `run_pipeline.py` script directly, use the following command:
 
 ```bash
-python code/src/run_pipeline.py
+python code/src/run_inference_pipeline.py
 ```
 
 Make sure you have all the necessary dependencies installed. You can install them using:

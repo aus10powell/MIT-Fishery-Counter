@@ -52,3 +52,18 @@ def test_inference_module_initialization(mock_yolo, mock_exists, mock_videocaptu
 
     inference_module = InferenceCounter()
     assert inference_module is not None
+
+
+@mock.patch("cv2.VideoCapture")
+@mock.patch("os.path.exists")
+@mock.patch("ultralytics.YOLO")
+def test_run_inference_invalid_video(mock_yolo, mock_exists, mock_videocapture):
+    mock_exists.side_effect = (
+        lambda path: False if path == "invalid_video_path.mp4" else True
+    )
+    mock_yolo.return_value = mock.Mock()
+
+    inference_module = InferenceCounter()
+
+    with pytest.raises(AssertionError):
+        inference_module.run_inference("invalid_video_path.mp4")

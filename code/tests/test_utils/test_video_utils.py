@@ -6,8 +6,10 @@ from datetime import datetime
 import cv2
 import numpy as np
 import pytest
-from src.utils.video_utils import (extract_datetime_from_filename,
+from src.utils.video_utils import (create_timestamps,
+                                   extract_datetime_from_filename,
                                    write_frame_data_to_csv,
+                                   get_annotated_video_name,
                                    write_frames_to_file)
 
 
@@ -71,6 +73,7 @@ def test_write_frame_data_to_csv():
             ]
             assert rows == expected_rows, "CSV rows do not match expected data"
 
+
 def generate_dummy_frames(num_frames, height, width, color=(0, 255, 0)):
     """
     Generate a list of dummy frames for testing.
@@ -89,3 +92,65 @@ def generate_dummy_frames(num_frames, height, width, color=(0, 255, 0)):
         frame = np.full((height, width, 3), color, dtype=np.uint8)
         frames.append(frame)
     return frames
+
+
+def test_create_timestamps_valid():
+    relative_frame_times = [0.0, 1.0, 2.0]
+    reference_datetime = datetime(2023, 10, 5, 14, 30, 0)
+    expected_timestamps = [
+        "2023-10-05 14:30:00.000000",
+        "2023-10-05 14:30:01.000000",
+        "2023-10-05 14:30:02.000000",
+    ]
+    result = create_timestamps(relative_frame_times, reference_datetime)
+    assert result == expected_timestamps, "Timestamps do not match expected values"
+
+
+def test_create_timestamps_empty_list():
+    relative_frame_times = []
+    reference_datetime = datetime(2023, 10, 5, 14, 30, 0)
+    expected_timestamps = []
+    result = create_timestamps(relative_frame_times, reference_datetime)
+    assert result == expected_timestamps, "Expected an empty list of timestamps"
+
+
+def test_create_timestamps_different_format():
+    relative_frame_times = [0.0, 1.0, 2.0]
+    reference_datetime = datetime(2023, 10, 5, 14, 30, 0)
+    format_string = "%Y-%m-%d %H:%M:%S"
+    expected_timestamps = [
+        "2023-10-05 14:30:00",
+        "2023-10-05 14:30:01",
+        "2023-10-05 14:30:02",
+    ]
+    result = create_timestamps(relative_frame_times, reference_datetime, format_string)
+    assert (
+        result == expected_timestamps
+    ), "Timestamps do not match expected values with custom format"
+
+def test_get_annotated_video_name_typical():
+    video_path = "/path/to/video.mp4"
+    expected_name = "video_annotated"
+    result = get_annotated_video_name(video_path)
+    assert result == expected_name, f"Expected {expected_name}, got {result}"
+
+
+def test_get_annotated_video_name_special_characters():
+    video_path = "/path/to/video@123!.mp4"
+    expected_name = "video@123!_annotated"
+    result = get_annotated_video_name(video_path)
+    assert result == expected_name, f"Expected {expected_name}, got {result}"
+
+
+def test_get_annotated_video_name_no_extension():
+    video_path = "/path/to/video"
+    expected_name = "video_annotated"
+    result = get_annotated_video_name(video_path)
+    assert result == expected_name, f"Expected {expected_name}, got {result}"
+
+
+def test_get_annotated_video_name_empty_path():
+    video_path = ""
+    expected_name = "_annotated"
+    result = get_annotated_video_name(video_path)
+    assert result == expected_name, f"Expected {expected_name}, got {result}"

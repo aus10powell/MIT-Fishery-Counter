@@ -1,4 +1,4 @@
-# Project Name
+# Running inference code
 
 ## Running `run_pipeline.py`
 

@@ -88,7 +88,8 @@ class InferenceCounter:
         line_annotator = sv.LineZoneAnnotator(
             thickness=2, text_thickness=1, text_scale=0.2
         )
-        box_annotator = sv.BoxAnnotator(thickness=1, text_thickness=1, text_scale=0.3)
+        #box_annotator = sv.BoxAnnotator(thickness=1, text_thickness=1, text_scale=0.3)
+        box_annotator =  sv.BoxAnnotator()
 
         parameters = {
             "video_path": video_path,
@@ -128,10 +129,9 @@ class InferenceCounter:
             if result.boxes.id is not None:
                 detections.tracker_id = result.boxes.id.cpu().numpy().astype(int)
             labels = [
-                f"tracker_id: {tracker_id} {self.model.model.names[class_id]} {confidence:0.2f}"
-                for idx, (bbox, _, confidence, class_id, tracker_id) in enumerate(
-                    detections
-                )
+                f"#{tracker_id} {self.class_names[class_id]} {confidence:0.2f}"
+                for idx, (bbox, *_, confidence, class_id, tracker_id) in enumerate(detections)
+                if tracker_id is not None
             ]
             if len(detections) > 0:
                 frame_detections.append(len(detections))

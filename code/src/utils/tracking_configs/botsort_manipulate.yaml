@@ -1,5 +1,7 @@
 appearance_thresh: 0.1
 cmc_method: sparseOptFlow
+gmc_method: sparseOptFlow
+fuse_score: 0.5
 match_thresh: 0.99
 new_track_thresh: 0.6
 proximity_thresh: 0.2

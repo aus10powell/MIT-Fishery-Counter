@@ -1,6 +1,7 @@
 import os
 import pytest
 from unittest import mock
+from unittest.mock import Mock, patch, MagicMock
 from src.pipeline import parse_args, process_video_analysis, main
 
 def test_parse_args_valid_params():
@@ -99,6 +100,24 @@ def test_process_video_analysis_success(mock_time, mock_resource, mock_video_uti
 
     mock_video_utils.write_frames_to_file.assert_called_once()
     mock_video_utils.write_counts_to_json.assert_called_once()
+
+
+@patch('src.pipeline.InferenceCounter')
+def test_process_video_analysis_invalid_video_path(mock_inference_counter):
+    valid_params = {
+        "video_path": "test_video.mp4",
+        "OUTPUT_DIR": "/tmp/output",
+        "tracker": "tracker.yaml",
+        "model_path": "model.pt"
+    }
+
+    mock_counter = Mock()
+    mock_counter.run_inference.side_effect = AssertionError("Invalid video path")
+    mock_inference_counter.return_value = mock_counter
+    
+    with pytest.raises(AssertionError):
+        process_video_analysis(**valid_params)
+
 
 def test_process_video_analysis_missing_params():
     params = {

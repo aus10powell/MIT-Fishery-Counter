@@ -10,7 +10,7 @@ import numpy as np
 import supervision as sv
 from ultralytics import YOLO
 
-from src.utils.video_utils import get_processesor_type, set_logging_level
+from src.utils.video_utils import get_processesor_type, set_logging_level as set_logging_level_utils
 
 
 class InferenceCounter:
@@ -18,37 +18,35 @@ class InferenceCounter:
         self.device = device
         self.tracker = tracker
         self.model = self.load_model(model_path)
-        self.logger = self.set_logging_level()
+        # Initialize logger first
+        self.logger = logging.getLogger("InferenceCounter")
+        # Set default level to INFO
+        self.set_logging_level("INFO")
+
 
     def load_model(self, model_path):
         model = YOLO(model_path)
         return model
 
-    def set_logging_level(self, level=None):
+    def set_logging_level(self, level: str):
         """
-        Set logging level based on the class name.
-
+        Set logging level for the instance logger.
+    
         Args:
-            class_name (str): The name of the class.
+            level (str): The logging level to set ('DEBUG', 'INFO', etc.)
+        
+        Returns:
+            logging.Logger: The configured logger instance
         """
-        logging_levels = {
-            "DEBUG": logging.DEBUG,
-            "INFO": logging.INFO,
-            "WARNING": logging.WARNING,
-            "ERROR": logging.ERROR,
-            "CRITICAL": logging.CRITICAL,
-        }
-
-        # Check if the extracted level is valid
-        if level in logging_levels:
-            logging.basicConfig(level=logging_levels[level])
-        else:
-            logging.basicConfig(
-                level=logging.INFO
-            )  # Default to INFO level if level is not recognized
-
-        return logging.getLogger(self.__class__.__name__)
-
+        try:
+            # Convert level to upper case and get the numeric level value
+            numeric_level = getattr(logging, level.upper())
+            self.logger.setLevel(numeric_level)
+        except (AttributeError, ValueError):
+            # Default to INFO if level is invalid
+            self.logger.setLevel(logging.INFO)
+        
+        return self.logger
     def run_inference(self, video_path, conf_threshold=0.525, stream=True, show=False):
         """
         Run inference on a video file using the YOLO model.
@@ -181,7 +179,7 @@ if __name__ == "__main__":
     # Set output dir to write results
     OUTPUT_DIR = os.path.join("/", "Users", "aus10powell", "Downloads")
 
-    logger = set_logging_level(__file__ + ":" + __name__)
+    logger = set_logging_level_utils(__file__ + ":" + __name__)
 
     # Get annotated frames and input video frame rate
     video_path = "/Users/aus10powell/Documents/Projects/MIT-Fishery-Counter/data/gold_dataset/videos/irwa/1_2016-04-22_12-36-58.mp4"
